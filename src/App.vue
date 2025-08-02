@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import qproData from './assets/qpro31.json'
 
@@ -8,8 +8,12 @@ import type { spriteItem } from './types/spriteItem'
 import type { qproName } from './types/qproName'
 
 import { CopyDocument } from '@element-plus/icons-vue'
+import { Download } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
-const controller = new AbortController();
+type QproKey = "head" | "hair" | "face" | "hand" | "body";
+
+const queryList: Boolean[] = [];
 
 const spriteData: spriteItem[] = [
   {
@@ -166,112 +170,48 @@ const nameObj = ref<qproName>({
   hand: ""
 })
 
-let previewCodeObj: qproCode = {
-  face: 0,
-  hair: 0,
-  head: 0,
-  body: 0,
-  hand: 0
-}
+const queryNow = ref<number>(0)
 
-async function handelClick(option: string) {
-  qproPreviewList.value = [];
+async function handelClick(option: QproKey) {
+  queryList.fill(false);
+  let queryNum = queryList.length;
+  queryNow.value = queryNum;
+  queryList.push(true);
+  qproPreviewList.value.push([])
 
-  previewCodeObj = codeObj;
-  if (option === "face") {
-    for (let i = 0; i < qproData.face.length; i++) {
-      let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-      tempCanvas.width = 384;
-      tempCanvas.height = 400;
-      previewCodeObj.face = i;
-      await renderSprites(tempCanvas, previewCodeObj, false);
-      await new Promise<void>((resolve) => {
-        tempCanvas.toBlob((blob) => {
-          if (blob != null) {
-            qproPreviewList.value.push(URL.createObjectURL(blob));
-          }
-          resolve();
-        }, 'image/webp');
-      });
-    }
-  }
-  if (option === "hair") {
-    for (let i = 0; i < qproData.hair.length; i++) {
-      let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-      tempCanvas.width = 384;
-      tempCanvas.height = 400;
-      previewCodeObj.hair = i;
-      await renderSprites(tempCanvas, previewCodeObj, false);
-      await new Promise<void>((resolve) => {
-        tempCanvas.toBlob((blob) => {
-          if (blob != null) {
-            qproPreviewList.value.push(URL.createObjectURL(blob));
-          }
-          resolve();
-        }, 'image/webp');
-      });
-    }
-  }
-  if (option === "head") {
-    for (let i = 0; i < qproData.head.length; i++) {
-      let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-      tempCanvas.width = 384;
-      tempCanvas.height = 400;
-      previewCodeObj.head = i;
-      await renderSprites(tempCanvas, previewCodeObj, false);
-      await new Promise<void>((resolve) => {
-        tempCanvas.toBlob((blob) => {
-          if (blob != null) {
-            qproPreviewList.value.push(URL.createObjectURL(blob));
-          }
-          resolve();
-        }, 'image/webp');
-      });
-    }
-  }
-  if (option === "body") {
-    for (let i = 0; i < qproData.body.length; i++) {
-      let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-      tempCanvas.width = 384;
-      tempCanvas.height = 400;
-      previewCodeObj.body = i;
-      await renderSprites(tempCanvas, previewCodeObj, false);
-      await new Promise<void>((resolve) => {
-        tempCanvas.toBlob((blob) => {
-          if (blob != null) {
-            qproPreviewList.value.push(URL.createObjectURL(blob));
-          }
-          resolve();
-        }, 'image/webp');
-      });
-    }
-  }
-  if (option === "hand") {
-    for (let i = 0; i < qproData.hand.length; i++) {
-      let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-      tempCanvas.width = 384;
-      tempCanvas.height = 400;
-      previewCodeObj.hand = i;
-      await renderSprites(tempCanvas, previewCodeObj, false);
-      await new Promise<void>((resolve) => {
-        tempCanvas.toBlob((blob) => {
-          if (blob != null) {
-            qproPreviewList.value.push(URL.createObjectURL(blob));
-          }
-          resolve();
-        }, 'image/webp');
-      });
-    }
+  let previewCodeObj: qproCode = { ...codeObj };
+  previewType = option
+
+  for (let i = 0; i < qproData[option].length; i++) {
+    let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
+    tempCanvas.width = 384;
+    tempCanvas.height = 400;
+    previewCodeObj[option] = i;
+    await renderSprites(tempCanvas, previewCodeObj, false);
+    await new Promise<void>((resolve) => {
+      tempCanvas.toBlob((blob) => {
+        if (blob != null && queryList[queryNum]) {
+          qproPreviewList.value[queryNow.value].push(URL.createObjectURL(blob));
+        }
+        resolve();
+      }, 'image/webp');
+    });
   }
 }
 
-const qproPreviewList = ref<string[]>([])
+const qproPreviewList = ref<string[][]>([])
 
-const selected = ref()
+let previewType: QproKey
 
 const qproCanvas = ref<HTMLCanvasElement | null>(null)
 
 onMounted(async () => {
+  const saved = localStorage.getItem('qproCode')
+
+  if (saved) {
+    codeObj = JSON.parse(saved)
+  }
+
   await renderSprites(qproCanvas.value, codeObj, true)
 })
 
@@ -388,50 +328,91 @@ function loadImage(src: string): Promise<HTMLImageElement> {
     img.onerror = reject
   })
 }
+
+function copyCode(qproKey: QproKey) {
+  navigator.clipboard.writeText(codeObj[qproKey].toString());
+  console.log(qproKey)
+  ElMessage({
+    message: 'Copied successfully',
+    type: 'success',
+  })
+}
+
+function saveImage() {
+  const webpDataURL = qproCanvas.value!.toDataURL('image/webp');
+
+  const link = document.createElement('a');
+  link.download = `qpro.webp`;
+  link.href = webpDataURL;
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+async function changeSprite(code: number) {
+  codeObj[previewType] = code;
+  localStorage.setItem('qproCode', JSON.stringify(codeObj))
+  if (qproCanvas.value) {
+    const ctx = qproCanvas.value.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, qproCanvas.value.width, qproCanvas.value.height);
+    }
+  }
+  await renderSprites(qproCanvas.value, codeObj, true)
+}
 </script>
 
 <template>
   <div
-    class="rounded-sm border-1 border-solid my-6 mx-36 shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-3rem)] flex items-center justify-center">
-    <div class="h-full">
-      <canvas ref="qproCanvas" width="384" height="400"></canvas>
-      <div class=" space-y-2">
+    class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center">
+    <div class="flex flex-col items-center justify-center">
+      <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] sm:w-[25vw] h-auto"></canvas>
+      <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
           <el-button round @click="handelClick('face')" class=" w-16">Face</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.face }}</p>
-          <el-button type="primary" :icon="CopyDocument">Code</el-button>
+          <el-button type="primary" :icon="CopyDocument" @click="copyCode('face')">Code</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round @click="handelClick('hair')" class=" w-16">Hair</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hair }}</p>
-          <el-button type="primary" :icon="CopyDocument">Code</el-button>
+          <el-button type="primary" :icon="CopyDocument" @click="copyCode('hair')">Code</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round @click="handelClick('head')" class=" w-16">Head</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.head }}</p>
-          <el-button type="primary" :icon="CopyDocument">Code</el-button>
+          <el-button type="primary" :icon="CopyDocument" @click="copyCode('head')">Code</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round @click="handelClick('body')" class=" w-16">Body</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.body }}</p>
-          <el-button type="primary" :icon="CopyDocument">Code</el-button>
+          <el-button type="primary" :icon="CopyDocument" @click="copyCode('body')">Code</el-button>
         </div>
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center mb-2">
           <el-button round @click="handelClick('hand')" class=" w-16">Hand</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
-          <el-button type="primary" :icon="CopyDocument">Code</el-button>
+          <el-button type="primary" :icon="CopyDocument" @click="copyCode('hand')">Code</el-button>
         </div>
+        <el-button type="primary" :icon="Download" @click="saveImage" class=" mb-2">Save Qpro As Image</el-button>
       </div>
     </div>
-    <div
-      class="w-[calc(384px*2+1rem)] h-[calc(400px*2+1rem)] overflow-y-auto border-l-2 border-dotted border-gray-300 p-2">
-      <div class="grid grid-cols-2 gap-2">
-        <div v-for="(img, index) in qproPreviewList" :key="index" class="w-[384px] h-[400px] relative border-4"
-          :class="selected === index ? 'border-blue-500 rounded-sm' : 'border-transparent'" @click="selected = index">
-          <img :src="img" alt="loading" class="object-cover" />
-          <div v-if="selected === index"
-            class="absolute top-1 right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-sm">
-            Selected
+    <div class="md:border-l-4 md:h-[80vh] md:mr-4 border-dotted border-gray-300"></div>
+    <div class="flex flex-col items-center justify-center">
+      <div class="md:border-none border-t-4 border-dotted border-gray-300 w-full"></div>
+      <p class="text-2xl">Previewer</p>
+      <div
+        class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div v-for="(img, index) in qproPreviewList[queryNow]" :key="index"
+            class="md:w-[384px] w-full h-auto relative border-4"
+            :class="codeObj[previewType] === index ? 'border-blue-500 rounded-sm' : 'border-transparent'"
+            @click="codeObj[previewType] = index; changeSprite(index)">
+            <img draggable="false" :src="img" alt="loading" class="object-cover" />
+            <div v-if="codeObj[previewType] === index"
+              class="absolute top-1 right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-sm">
+              Selected
+            </div>
           </div>
         </div>
       </div>

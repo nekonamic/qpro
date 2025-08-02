@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "font", system-ui;
 }
 
 @layer base {
