@@ -403,7 +403,7 @@ async function changeSprite(code: number) {
       <p class="text-2xl">Previewer</p>
       <div
         class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div v-if="qproPreviewList[queryNow]" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div v-for="(img, index) in qproPreviewList[queryNow]" :key="index"
             class="md:w-[384px] w-full h-auto relative border-4"
             :class="codeObj[previewType] === index ? 'border-blue-500 rounded-sm' : 'border-transparent'"
@@ -414,6 +414,9 @@ async function changeSprite(code: number) {
               Selected
             </div>
           </div>
+        </div>
+        <div v-else class="flex items-center justify-center h-64">
+          <span class="text-gray-500 text-lg">Select a qpro component</span>
         </div>
       </div>
     </div>
