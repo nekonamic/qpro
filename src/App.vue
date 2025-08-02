@@ -568,7 +568,7 @@ async function handelSetsClick() {
         class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
         <div v-if="qproPreviewList" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div v-for="(img, index) in qproPreviewList" :key="index" class="md:w-[384px] w-full h-auto relative border-4"
-            :class="codeObj[previewType] === index ? 'border-blue-500 rounded-sm' : 'border-transparent'"
+            :class="codeObj[previewType] === index && !chooseSet ? 'border-blue-500 rounded-sm' : 'border-transparent'"
             @click="codeObj[previewType] = index; changeSprite(index)">
             <img draggable="false" :src="img" alt="loading" class="object-cover" />
             <div v-if="codeObj[previewType] === index"
