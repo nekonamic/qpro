@@ -367,6 +367,7 @@ async function changeSprite(code: number) {
   <div
     class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center">
     <div class="flex flex-col items-center justify-center">
+      <p class="text-2xl font-bold">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] sm:w-[25vw] h-auto"></canvas>
       <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
@@ -394,13 +395,14 @@ async function changeSprite(code: number) {
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
           <el-button type="primary" :icon="CopyDocument" @click="copyCode('hand')">Code</el-button>
         </div>
-        <el-button type="primary" :icon="Download" @click="saveImage" class=" mb-2">Save Qpro As Image</el-button>
+        <el-button type="primary" :icon="Download" @click="saveImage" class="mb-1">Save Qpro As Image</el-button>
+        <p class="mb-1">Develop by DJ HITOMI with 🏳️‍⚧️</p>
       </div>
     </div>
     <div class="md:border-l-4 md:h-[80vh] md:mr-4 border-dotted border-gray-300"></div>
     <div class="flex flex-col items-center justify-center">
       <div class="md:border-none border-t-4 border-dotted border-gray-300 w-full"></div>
-      <p class="text-2xl">Previewer</p>
+      <p class="text-2xl">QPro List</p>
       <div
         class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
         <div v-if="qproPreviewList[queryNow]" class="grid grid-cols-1 md:grid-cols-2 gap-2">
