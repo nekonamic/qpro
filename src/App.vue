@@ -25,6 +25,10 @@ type QproDataL1 = {
   body: QproDataL2[];
 };
 
+let setsCode: qproCode[] = []
+
+let chooseSet:boolean = false
+
 const renderProgressPercentage = ref<number>(0)
 
 const qproData = qproDataJson as QproDataL1;
@@ -199,6 +203,7 @@ tempCanvas.height = 400;
 const rending = ref<Boolean>(false)
 
 async function handelClick(option: QproKey) {
+  chooseSet = false
   renderProgressPercentage.value = 0;
   const totalRendingQuery = qproData[option].length
   let RendedQuery = 0
@@ -219,12 +224,14 @@ async function handelClick(option: QproKey) {
       }, 'image/webp');
     });
     RendedQuery++
-    renderProgressPercentage.value = Math.trunc(RendedQuery/totalRendingQuery*100)
+    renderProgressPercentage.value = Math.trunc(RendedQuery / totalRendingQuery * 100)
   }
   rending.value = false
 }
 
 onMounted(async () => {
+  setsCode = extractCompleteQproCodes()
+
   const saved = localStorage.getItem('qproCode')
 
   if (saved) {
@@ -237,7 +244,8 @@ onMounted(async () => {
 async function renderSprites(
   canvas: HTMLCanvasElement | null,
   code: qproCode,
-  type?: QproKey
+  type?: QproKey,
+  isRendingSet?:boolean
 ): Promise<void> {
   if (!canvas) return
 
@@ -252,14 +260,14 @@ async function renderSprites(
   if (type === undefined) {
     // face
     targetQproData = qproData.face.find(item => item.id === code.face)
-    nameObj.value.face = targetQproData!.name;
+    if (!isRendingSet) nameObj.value.face = targetQproData!.name;
     // face
     targetSpriteData = spriteData.find(item => item.type === "face")
     targetSpriteData!.image = targetQproData!.webp_base64;
 
     // hair
     targetQproData = qproData.hair.find(item => item.id === code.hair)
-    nameObj.value.hair = targetQproData!.name
+    if (!isRendingSet) nameObj.value.hair = targetQproData!.name
     // hair_f
     targetSpriteData = spriteData.find(item => item.type === "hair_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -269,7 +277,7 @@ async function renderSprites(
 
     // head
     targetQproData = qproData.head.find(item => item.id === code.head)
-    nameObj.value.head = targetQproData!.name
+    if (!isRendingSet) nameObj.value.head = targetQproData!.name
     // head_f
     targetSpriteData = spriteData.find(item => item.type === "head_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -279,7 +287,7 @@ async function renderSprites(
 
     // body
     targetQproData = qproData.body.find(item => item.id === code.body)
-    nameObj.value.body = targetQproData!.name
+    if (!isRendingSet) nameObj.value.body = targetQproData!.name
     // body_f
     targetSpriteData = spriteData.find(item => item.type === "body_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -313,7 +321,7 @@ async function renderSprites(
 
     // hand
     targetQproData = qproData.hand.find(item => item.id === code.hand)
-    nameObj.value.hand = targetQproData!.name
+    if (!isRendingSet) nameObj.value.hand = targetQproData!.name
     // hand_r
     targetSpriteData = spriteData.find(item => item.type === "hand_r")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -428,15 +436,87 @@ function saveImage() {
 }
 
 async function changeSprite(code: number) {
-  codeObj[previewType] = code;
+  if (chooseSet) {
+    codeObj = { ...setsCode[code] }
+  } else {
+    codeObj[previewType] = code;
+  }
+
   localStorage.setItem('qproCode', JSON.stringify(codeObj))
 
   await renderSprites(qproCanvas.value, codeObj)
 }
+
+function extractCompleteQproCodes(): qproCode[] {
+  const suffixes: Record<QproKey, string> = {
+    face: '_face',
+    hair: '_hair',
+    head: '_head',
+    body: '_body',
+    hand: '_hand'
+  };
+
+  const map: Map<string, qproCode> = new Map();
+
+  (Object.keys(qproData) as QproKey[]).forEach((part) => {
+    qproData[part].forEach(({ id, file_name }) => {
+      const key = file_name
+        .replace(/^qp_/, '')
+        .replace(suffixes[part], '');
+
+      if (!map.has(key)) {
+        map.set(key, {
+          face: -1,
+          hair: -1,
+          head: -1,
+          body: -1,
+          hand: -1
+        });
+      }
+
+      map.get(key)![part] = id;
+    });
+  });
+
+  const result: qproCode[] = [];
+  for (const code of map.values()) {
+    if (!Object.values(code).includes(-1)) {
+      result.push(code);
+    }
+  }
+
+  return result;
+}
+
+async function handelSetsClick() {
+  chooseSet = true
+  renderProgressPercentage.value = 0;
+  const totalRendingQuery = setsCode.length
+  let RendedQuery = 0
+  qproPreviewList.value.length = 0;
+  rending.value = true
+  let previewCodeObj: qproCode;
+
+  for (let i = 0; i < totalRendingQuery; i++) {
+    previewCodeObj = setsCode[i]
+    await renderSprites(tempCanvas, previewCodeObj, undefined, true);
+    await new Promise<void>((resolve) => {
+      tempCanvas.toBlob((blob) => {
+        if (blob != null) {
+          qproPreviewList.value.push(URL.createObjectURL(blob));
+        }
+        resolve();
+      }, 'image/webp');
+    });
+    RendedQuery++
+    renderProgressPercentage.value = Math.trunc(RendedQuery / totalRendingQuery * 100)
+  }
+  rending.value = false
+}
 </script>
 
 <template>
-  <el-dialog v-model="rending" title="Rending Qpro..." width="500">
+  <el-dialog v-model="rending" title="Rending Qpro..." width="500" :show-close=false :close-on-click-modal=false :close-on-press-escape=false>
     <el-progress :percentage="renderProgressPercentage" />
     <span></span>
   </el-dialog>
@@ -473,7 +553,10 @@ async function changeSprite(code: number) {
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
           <el-button type="primary" :icon="CopyDocument" @click="copyCode('hand')">Code</el-button>
         </div>
-        <el-button type="primary" :icon="Download" @click="saveImage" class="mb-1">Save Qpro As Image</el-button>
+        <div class="flex items-center justify-center mb-2">
+          <el-button round :disabled="rending" @click="handelSetsClick()" class=" w-16 mr-10">Sets</el-button>
+          <el-button type="primary" :icon="Download" @click="saveImage" class="mb-1">Save Qpro As Image</el-button>
+        </div>
         <p class="mb-1">Develop by DJ HITOMI with 🏳️‍⚧️</p>
       </div>
     </div>
