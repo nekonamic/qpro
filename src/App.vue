@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, shallowRef, type Ref, type ShallowRef } from 'vue'
 
-import qproDataJson from './assets/qpro31_webp.json' with { type: 'json' };
-
 import type { qproCode } from './types/qproCode'
 import type { spriteItem } from './types/spriteItem'
 import type { qproName } from './types/qproName'
@@ -29,9 +27,17 @@ let setsCode: qproCode[] = []
 
 let chooseSet: boolean = false
 
+const loadQproData = ref<boolean>(true)
+
 const renderProgressPercentage = ref<number>(0)
 
-const qproData = qproDataJson as QproDataL1;
+let qproData: QproDataL1 = {
+  head: [],
+  hair: [],
+  face: [],
+  hand: [],
+  body: []
+};
 
 type QproKey = "head" | "hair" | "face" | "hand" | "body";
 
@@ -287,6 +293,10 @@ async function handelClick(option: QproKey) {
 }
 
 onMounted(async () => {
+  qproData = (await import('./assets/qpro31_webp.json', {
+    assert: { type: 'json' }
+  })).default as QproDataL1;
+  loadQproData.value = false;
   setsCode = extractCompleteQproCodes()
 
   const saved = localStorage.getItem('qproCode')
@@ -611,9 +621,11 @@ async function handelSetsClick() {
   <el-dialog v-model="rending" title="Rending Qpro..." width="500" class=" max-w-[90vw]" :show-close=false
     :close-on-click-modal=false :close-on-press-escape=false>
     <el-progress :percentage="renderProgressPercentage" />
-    <span></span>
   </el-dialog>
 
+  <el-dialog v-model="loadQproData" title="Loading Qpro Data..." width="500" class=" max-w-[90vw]" :show-close=false
+    :close-on-click-modal=false :close-on-press-escape=false>
+  </el-dialog>
 
   <div
     class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
@@ -665,9 +677,8 @@ async function handelSetsClick() {
           with 🏳️‍⚧️</p>
       </div>
     </div>
-    <div class="md:border-l-4 md:h-[80vh] md:mr-4 border-dotted border-gray-300"></div>
     <div class="flex flex-col items-center justify-center">
-      <div class="md:border-none border-t-4 border-dotted border-gray-300 w-full"></div>
+      <div class="md:border-none border-t-2 border-dashed border-blue-400 w-full"></div>
       <p class="text-2xl mb-2">QPro List</p>
       <div
         class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
