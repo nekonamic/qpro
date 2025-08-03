@@ -27,7 +27,7 @@ type QproDataL1 = {
 
 let setsCode: qproCode[] = []
 
-let chooseSet:boolean = false
+let chooseSet: boolean = false
 
 const renderProgressPercentage = ref<number>(0)
 
@@ -245,7 +245,7 @@ async function renderSprites(
   canvas: HTMLCanvasElement | null,
   code: qproCode,
   type?: QproKey,
-  isRendingSet?:boolean
+  isRendingSet?: boolean
 ): Promise<void> {
   if (!canvas) return
 
@@ -516,7 +516,8 @@ async function handelSetsClick() {
 </script>
 
 <template>
-  <el-dialog v-model="rending" title="Rending Qpro..." width="500" :show-close=false :close-on-click-modal=false :close-on-press-escape=false>
+  <el-dialog v-model="rending" title="Rending Qpro..." width="500" class=" max-w-[90vw]" :show-close=false
+    :close-on-click-modal=false :close-on-press-escape=false>
     <el-progress :percentage="renderProgressPercentage" />
     <span></span>
   </el-dialog>
