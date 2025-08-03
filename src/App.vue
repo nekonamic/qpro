@@ -53,6 +53,14 @@ const spriteData: spriteItem[] = [
     size: [262, 352],
   },
   {
+    // qp_su30_fan_head_b
+    type: "qp_su30_fan_head_b",
+    image: "",
+    position: [524, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
     // body_b
     type: "body_b",
     image: "",
@@ -149,6 +157,14 @@ const spriteData: spriteItem[] = [
     size: [150, 158],
   },
   {
+    // qp_su31_variety_face
+    type: "qp_su31_variety_face",
+    image: "",
+    position: [0, 0],
+    drawAt: [89, 52],
+    size: [254, 218],
+  },
+  {
     // hair_f
     type: "hair_f",
     image: "",
@@ -172,6 +188,22 @@ const spriteData: spriteItem[] = [
     drawAt: [83, 25],
     size: [262, 352],
   },
+  {
+    // qp_su30_fan_head_f1
+    type: "qp_su30_fan_head_f1",
+    image: "",
+    position: [262, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // qp_su30_fan_head_f2
+    type: "qp_su30_fan_head_f2",
+    image: "",
+    position: [0, 0],
+    drawAt: [92, 96],
+    size: [262, 352],
+  }
 ]
 
 let codeObj: qproCode = {
@@ -262,6 +294,26 @@ onMounted(async () => {
   if (saved) {
     codeObj = JSON.parse(saved)
   }
+
+  // qp_su30_fan_head
+  let targetQproData: QproDataL2 | undefined
+  let targetSpriteData: spriteItem | undefined
+  targetQproData = qproData.head.find(item => item.id === 356)
+  // qp_su30_fan_head_f1
+  targetSpriteData = spriteData.find(item => item.type === "qp_su30_fan_head_f1")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_su30_fan_head_f2
+  targetSpriteData = spriteData.find(item => item.type === "qp_su30_fan_head_f2")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_su30_fan_head_b
+  targetSpriteData = spriteData.find(item => item.type === "qp_su30_fan_head_b")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+
+  // qp_su31_variety_face
+  targetQproData = qproData.face.find(item => item.id === 266)
+  // qp_su31_variety_face
+  targetSpriteData = spriteData.find(item => item.type === "qp_su31_variety_face")
+  targetSpriteData!.image = targetQproData!.webp_base64;
 
   await renderSprites(qproCanvas.value, codeObj)
 })
@@ -427,11 +479,15 @@ async function renderSprites(
   for (const sprite of spriteData) {
     const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
 
-    const [sx, sy] = sprite.position
-    const [dx, dy] = sprite.drawAt
-    const [dw, dh] = sprite.size
-
-    ctx.drawImage(img, sx, sy, dw, dh, dx, dy, dw, dh)
+    if ((code.head != 356 && !(["qp_su30_fan_head_b", "qp_su30_fan_head_f1", "qp_su30_fan_head_f2", "qp_su31_variety_face"].includes(sprite.type))) ||
+      (code.head === 356 && !(["head_b", "head_f", "qp_su31_variety_face"].includes(sprite.type))) ||
+      (code.face === 266 && !(["face", "qp_su30_fan_head_b", "qp_su30_fan_head_f1", "qp_su30_fan_head_f2"].includes(sprite.type)))
+    ) {
+      const [sx, sy] = sprite.position
+      const [dx, dy] = sprite.drawAt
+      const [dw, dh] = sprite.size
+      ctx.drawImage(img, sx, sy, dw, dh, dx, dy, dw, dh)
+    }
   }
 }
 
@@ -568,32 +624,37 @@ async function handelSetsClick() {
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('face')" class=" w-16">Face</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.face }}</p>
-          <el-button :type="copyButtonTypeMap['face'].value" :icon="copyButtonIconMap['face'].value" @click="copyCode('face')" class=" w-22">{{
-            copyButtonTextMap['face'] }}</el-button>
+          <el-button :type="copyButtonTypeMap['face'].value" :icon="copyButtonIconMap['face'].value"
+            @click="copyCode('face')" class=" w-22">{{
+              copyButtonTextMap['face'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('hair')" class=" w-16">Hair</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hair }}</p>
-          <el-button :type="copyButtonTypeMap['hair'].value" :icon="copyButtonIconMap['hair'].value" @click="copyCode('hair')" class=" w-22">{{
-            copyButtonTextMap['hair'] }}</el-button>
+          <el-button :type="copyButtonTypeMap['hair'].value" :icon="copyButtonIconMap['hair'].value"
+            @click="copyCode('hair')" class=" w-22">{{
+              copyButtonTextMap['hair'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('head')" class=" w-16">Head</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.head }}</p>
-          <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value" @click="copyCode('head')" class=" w-22">{{
-            copyButtonTextMap['head'] }}</el-button>
+          <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value"
+            @click="copyCode('head')" class=" w-22">{{
+              copyButtonTextMap['head'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('body')" class=" w-16">Body</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.body }}</p>
-          <el-button :type="copyButtonTypeMap['body'].value" :icon="copyButtonIconMap['body'].value" @click="copyCode('body')" class=" w-22">{{
-            copyButtonTextMap['body'] }}</el-button>
+          <el-button :type="copyButtonTypeMap['body'].value" :icon="copyButtonIconMap['body'].value"
+            @click="copyCode('body')" class=" w-22">{{
+              copyButtonTextMap['body'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelClick('hand')" class=" w-16">Hand</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
-          <el-button :type="copyButtonTypeMap['hand'].value" :icon="copyButtonIconMap['hand'].value" @click="copyCode('hand')" class=" w-22">{{
-            copyButtonTextMap['hand'] }}</el-button>
+          <el-button :type="copyButtonTypeMap['hand'].value" :icon="copyButtonIconMap['hand'].value"
+            @click="copyCode('hand')" class=" w-22">{{
+              copyButtonTextMap['hand'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelSetsClick()" class=" w-16 mr-10">Sets</el-button>
