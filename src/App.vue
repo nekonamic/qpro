@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, shallowRef, type Ref, type ShallowRef } from 'vue'
 
 import qproDataJson from './assets/qpro31_webp.json' with { type: 'json' };
 
@@ -7,7 +7,7 @@ import type { qproCode } from './types/qproCode'
 import type { spriteItem } from './types/spriteItem'
 import type { qproName } from './types/qproName'
 
-import { CopyDocument } from '@element-plus/icons-vue'
+import { CopyDocument, SuccessFilled } from '@element-plus/icons-vue'
 import { Download } from '@element-plus/icons-vue'
 
 type QproDataL2 = {
@@ -189,6 +189,31 @@ const nameObj = ref<qproName>({
   body: "",
   hand: ""
 })
+
+const copyButtonTypeMap: Record<QproKey, Ref<string>> = {
+  head: ref<'primary' | 'success'>('primary'),
+  hair: ref<'primary' | 'success'>('primary'),
+  face: ref<'primary' | 'success'>('primary'),
+  hand: ref<'primary' | 'success'>('primary'),
+  body: ref<'primary' | 'success'>('primary')
+}
+
+const copyButtonIconMap: Record<QproKey, ShallowRef> = {
+  head: shallowRef(CopyDocument),
+  hair: shallowRef(CopyDocument),
+  face: shallowRef(CopyDocument),
+  hand: shallowRef(CopyDocument),
+  body: shallowRef(CopyDocument)
+}
+
+
+const copyButtonTextMap: Record<QproKey, Ref<string>> = {
+  head: ref('Code'),
+  hair: ref('Code'),
+  face: ref('Code'),
+  hand: ref('Code'),
+  body: ref('Code')
+}
 
 const qproPreviewList = ref<string[]>([])
 
@@ -421,6 +446,17 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 
 function copyCode(qproKey: QproKey) {
   navigator.clipboard.writeText(codeObj[qproKey].toString());
+
+  copyButtonTypeMap[qproKey].value = 'success'
+  copyButtonIconMap[qproKey].value = SuccessFilled
+  copyButtonTextMap[qproKey].value = 'Copied!'
+
+  setTimeout(() => {
+    copyButtonTypeMap[qproKey].value = 'primary'
+    copyButtonIconMap[qproKey].value = CopyDocument
+    copyButtonTextMap[qproKey].value = 'Code'
+
+  }, 3000)
 }
 
 function saveImage() {
@@ -524,41 +560,48 @@ async function handelSetsClick() {
 
 
   <div
-    class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center">
+    class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
-      <p class="text-2xl font-bold">QPro Previewer for IIDX 31</p>
+      <p class="text-2xl font-black">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] sm:w-[25vw] h-auto"></canvas>
       <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('face')" class=" w-16">Face</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.face }}</p>
-          <el-button type="primary" :icon="CopyDocument" @click="copyCode('face')">Code</el-button>
+          <el-button :type="copyButtonTypeMap['face'].value" :icon="copyButtonIconMap['face'].value" @click="copyCode('face')" class=" w-22">{{
+            copyButtonTextMap['face'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('hair')" class=" w-16">Hair</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hair }}</p>
-          <el-button type="primary" :icon="CopyDocument" @click="copyCode('hair')">Code</el-button>
+          <el-button :type="copyButtonTypeMap['hair'].value" :icon="copyButtonIconMap['hair'].value" @click="copyCode('hair')" class=" w-22">{{
+            copyButtonTextMap['hair'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('head')" class=" w-16">Head</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.head }}</p>
-          <el-button type="primary" :icon="CopyDocument" @click="copyCode('head')">Code</el-button>
+          <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value" @click="copyCode('head')" class=" w-22">{{
+            copyButtonTextMap['head'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('body')" class=" w-16">Body</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.body }}</p>
-          <el-button type="primary" :icon="CopyDocument" @click="copyCode('body')">Code</el-button>
+          <el-button :type="copyButtonTypeMap['body'].value" :icon="copyButtonIconMap['body'].value" @click="copyCode('body')" class=" w-22">{{
+            copyButtonTextMap['body'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelClick('hand')" class=" w-16">Hand</el-button>
           <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
-          <el-button type="primary" :icon="CopyDocument" @click="copyCode('hand')">Code</el-button>
+          <el-button :type="copyButtonTypeMap['hand'].value" :icon="copyButtonIconMap['hand'].value" @click="copyCode('hand')" class=" w-22">{{
+            copyButtonTextMap['hand'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelSetsClick()" class=" w-16 mr-10">Sets</el-button>
           <el-button type="primary" :icon="Download" @click="saveImage" class="mb-1">Save Qpro As Image</el-button>
         </div>
-        <p class="mb-1">Develop by DJ HITOMI with 🏳️‍⚧️</p>
+        <p class="mb-1">Develop by DJ <span
+            class="font-bold bg-gradient-to-r from-[#5BCEFA] to-[#F5A9B8] bg-clip-text text-transparent">HITOMI</span>
+          with 🏳️‍⚧️</p>
       </div>
     </div>
     <div class="md:border-l-4 md:h-[80vh] md:mr-4 border-dotted border-gray-300"></div>
