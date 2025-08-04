@@ -704,7 +704,7 @@ function addMarquee(nameLength: number, styleId: string) {
   <div
     class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
-      <p class="text-2xl font-black">QPro Previewer for IIDX 31</p>
+      <p class="text-2xl font-extrabold">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] md:w-[25vw] h-auto"></canvas>
       <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
