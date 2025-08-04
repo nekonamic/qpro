@@ -773,9 +773,9 @@ function addMarquee(nameLength: number, styleId: string) {
       </div>
     </div>
     <div
-      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-2 border border-gray-100 shadow-xl rounded-xl">
+      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[80vh] w-[70vw] h-[70vh] overflow-y-auto p-2 border border-gray-100 shadow-xl rounded-xl">
       <p class="text-2xl mb-2 text-center border-b border-gray-300">QPro List</p>
-      <div v-if="qproPreviewList" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
           class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
           :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
