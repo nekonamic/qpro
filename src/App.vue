@@ -691,17 +691,6 @@ function addMarquee(nameLength: number, styleId: string) {
 </script>
 
 <template>
-  <el-dialog v-model="rending" width="500" class=" max-w-[90vw]" :show-close=false :close-on-click-modal=false
-    :close-on-press-escape=false>
-    <template #header>
-      <div class="flex items-center">
-        <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
-        Rending Qpro...
-      </div>
-    </template>
-    <el-progress :percentage="renderProgressPercentage" />
-  </el-dialog>
-
   <el-dialog v-model="loadQproData" width="500" class="max-w-[90vw]" :show-close=false :close-on-click-modal=false
     :close-on-press-escape=false>
     <template #header>
@@ -713,7 +702,7 @@ function addMarquee(nameLength: number, styleId: string) {
   </el-dialog>
 
   <div
-    class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
+    class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
       <p class="text-2xl font-black">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] md:w-[25vw] h-auto"></canvas>
@@ -773,9 +762,18 @@ function addMarquee(nameLength: number, styleId: string) {
       </div>
     </div>
     <div
-      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[80vh] w-[70vw] h-[70vh] overflow-y-auto p-2 border border-gray-100 shadow-xl rounded-xl">
-      <p class="text-2xl mb-2 text-center border-b border-gray-300">QPro List</p>
-      <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:min-h-[calc(100vh-8rem)] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
+      <div class="border-b border-gray-200 sticky top-0 z-50 bg-white">
+        <p class="text-2xl text-center">QPro List</p>
+        <div class="grid grid-cols-[auto_1fr] pb" v-if="qproPreviewList.length != 0">
+          <div class="size-5 mr-4">
+            <img class="animate-spin" v-if="rending" src="/fish-cake.svg" alt="loading" />
+          </div>
+          <el-progress :percentage="renderProgressPercentage" :status="rending ? '': 'success'" />
+        </div>
+        
+      </div>
+      <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2 px-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
           class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
           :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
