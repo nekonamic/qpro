@@ -27,7 +27,7 @@ let setsCode: qproCode[] = []
 
 let chooseSet: boolean = false
 
-const loadQproData = ref<boolean>(true)
+const loadQproData = ref<boolean>(false)
 
 const renderProgressPercentage = ref<number>(0)
 
@@ -293,10 +293,12 @@ async function handelClick(option: QproKey) {
 }
 
 onMounted(async () => {
+  loadQproData.value = true;
   qproData = (await import('./assets/qpro31_webp.json', {
     assert: { type: 'json' }
   })).default as QproDataL1;
   loadQproData.value = false;
+
   setsCode = extractCompleteQproCodes()
 
   const saved = localStorage.getItem('qproCode')
@@ -618,13 +620,25 @@ async function handelSetsClick() {
 </script>
 
 <template>
-  <el-dialog v-model="rending" title="Rending Qpro..." width="500" class=" max-w-[90vw]" :show-close=false
-    :close-on-click-modal=false :close-on-press-escape=false>
+  <el-dialog v-model="rending" width="500" class=" max-w-[90vw]" :show-close=false :close-on-click-modal=false
+    :close-on-press-escape=false>
+    <template #title>
+      <div class="flex items-center">
+        <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
+        Rending Qpro...
+      </div>
+    </template>
     <el-progress :percentage="renderProgressPercentage" />
   </el-dialog>
 
-  <el-dialog v-model="loadQproData" title="Loading Qpro Data..." width="500" class=" max-w-[90vw]" :show-close=false
-    :close-on-click-modal=false :close-on-press-escape=false>
+  <el-dialog v-model="loadQproData" width="500" class="max-w-[90vw]" :show-close=false :close-on-click-modal=false
+    :close-on-press-escape=false>
+    <template #title>
+      <div class="flex items-center">
+        <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
+        Loading Qpro...
+      </div>
+    </template>
   </el-dialog>
 
   <div
@@ -649,7 +663,10 @@ async function handelSetsClick() {
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('head')" class=" w-16">Head</el-button>
-          <p class=" font-black mx-2 text-center w-32">{{ nameObj.head }}</p>
+          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p class="font-black inline-block animate-marquee-pingpong">{{ nameObj.head }}</p>
+          </div>
+
           <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value"
             @click="copyCode('head')" class=" w-22">{{
               copyButtonTextMap['head'] }}</el-button>
@@ -677,28 +694,45 @@ async function handelSetsClick() {
           with 🏳️‍⚧️</p>
       </div>
     </div>
-    <div class="flex flex-col items-center justify-center">
-      <div class="md:border-none border-t-2 border-dashed border-blue-400 w-full"></div>
-      <p class="text-2xl mb-2">QPro List</p>
-      <div
-        class="md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-1 border-2 border-solid border-gray-300 rounded-sm">
-        <div v-if="qproPreviewList" class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div v-for="(img, index) in qproPreviewList" :key="index" class="md:w-[384px] w-full h-auto relative border-4"
-            :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border-blue-500 rounded-sm' : 'border-transparent'"
-            @click="codeObj[previewType] = index; changeSprite(index)">
-            <img draggable="false" :src="img" alt="loading" class="object-cover" />
-            <div v-if="codeObj[previewType] === index"
-              class="absolute top-1 right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-sm">
-              Selected
-            </div>
+    <div
+      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[75vh] w-[70vw] h-[100vh] overflow-y-auto p-2 border border-gray-100 shadow-xl rounded-xl">
+      <p class="text-2xl mb-2 text-center border-b border-gray-300">QPro List</p>
+      <div v-if="qproPreviewList" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div v-for="(img, index) in qproPreviewList" :key="index"
+          class="md:w-[25vw] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
+          :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
+          @click="codeObj[previewType] = index; changeSprite(index)">
+          <img draggable="false" :src="img" alt="loading" class="object-cover" />
+          <div
+            v-if="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet)"
+            class="absolute top-1 right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-sm">
+            Selected
           </div>
         </div>
-        <div v-else class="flex items-center justify-center h-64">
-          <span class="text-gray-500 text-lg">Select a qpro component</span>
-        </div>
+      </div>
+      <div v-else class="flex items-center justify-center h-64">
+        <span class="text-gray-500 text-lg">Select a qpro component</span>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.marquee-container {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes marquee-pingpong {
+  0%   { transform: translateX(-6rem); }
+  40%  { transform: translateX(0); } /* 往右移动（容器宽度 w-32 = 8rem）*/
+  50%  { transform: translateX(0); } /* 停止 1 秒 */
+  90%  { transform: translateX(-6rem); }                 /* 往左移回来 */
+  100% { transform: translateX(-6rem); }                 /* 停止 1 秒 */
+}
+
+.animate-marquee-pingpong {
+  animation: marquee-pingpong 6s ease-in-out infinite;
+}
+</style>
