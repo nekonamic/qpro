@@ -349,14 +349,28 @@ async function renderSprites(
   if (type === undefined) {
     // face
     targetQproData = qproData.face.find(item => item.id === code.face)
-    if (!isRendingSet) nameObj.value.face = targetQproData!.name;
+    if (!isRendingSet) {
+      nameObj.value.face = targetQproData!.name;
+      if (nameObj.value.face.length > 8) {
+        addMarquee(nameObj.value.face.length, "face")
+      } else {
+        removeMarquee("face")
+      }
+    }
     // face
     targetSpriteData = spriteData.find(item => item.type === "face")
     targetSpriteData!.image = targetQproData!.webp_base64;
 
     // hair
     targetQproData = qproData.hair.find(item => item.id === code.hair)
-    if (!isRendingSet) nameObj.value.hair = targetQproData!.name
+    if (!isRendingSet) {
+      nameObj.value.hair = targetQproData!.name;
+      if (nameObj.value.hair.length > 8) {
+        addMarquee(nameObj.value.hair.length, "hair")
+      } else {
+        removeMarquee("hair")
+      }
+    }
     // hair_f
     targetSpriteData = spriteData.find(item => item.type === "hair_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -366,7 +380,14 @@ async function renderSprites(
 
     // head
     targetQproData = qproData.head.find(item => item.id === code.head)
-    if (!isRendingSet) nameObj.value.head = targetQproData!.name
+    if (!isRendingSet) {
+      nameObj.value.head = targetQproData!.name;
+      if (nameObj.value.head.length > 8) {
+        addMarquee(nameObj.value.head.length, "head")
+      } else {
+        removeMarquee("head")
+      }
+    }
     // head_f
     targetSpriteData = spriteData.find(item => item.type === "head_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -376,7 +397,14 @@ async function renderSprites(
 
     // body
     targetQproData = qproData.body.find(item => item.id === code.body)
-    if (!isRendingSet) nameObj.value.body = targetQproData!.name
+    if (!isRendingSet) {
+      nameObj.value.body = targetQproData!.name;
+      if (nameObj.value.body.length > 8) {
+        addMarquee(nameObj.value.body.length, "body")
+      } else {
+        removeMarquee("body")
+      }
+    }
     // body_f
     targetSpriteData = spriteData.find(item => item.type === "body_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -410,7 +438,14 @@ async function renderSprites(
 
     // hand
     targetQproData = qproData.hand.find(item => item.id === code.hand)
-    if (!isRendingSet) nameObj.value.hand = targetQproData!.name
+    if (!isRendingSet) {
+      nameObj.value.hand = targetQproData!.name;
+      if (nameObj.value.hand.length > 8) {
+        addMarquee(nameObj.value.hand.length, "hand")
+      } else {
+        removeMarquee("hand")
+      }
+    }
     // hand_r
     targetSpriteData = spriteData.find(item => item.type === "hand_r")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -617,6 +652,42 @@ async function handelSetsClick() {
   }
   rending.value = false
 }
+
+function removeMarquee(styleId: string) {
+  styleId = styleId + "-marquee"
+  const existingStyle = document.getElementById(styleId);
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+}
+
+function addMarquee(nameLength: number, styleId: string) {
+  styleId = styleId + "-marquee"
+  const existingStyle = document.getElementById(styleId);
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  const style = document.createElement('style');
+  style.id = styleId;
+
+  style.textContent = `
+      @keyframes ${styleId} {
+      
+      0%   { transform: translateX(${8 - nameLength}rem); }
+      45%  { transform: translateX(0); }
+      50%  { transform: translateX(0); }
+      95%  { transform: translateX(${8 - nameLength}rem); }
+      100% { transform: translateX(${8 - nameLength}rem); }
+    }
+
+    .${styleId} {
+      animation: ${styleId} 6s ease-in-out infinite;
+    }
+  `;
+
+  document.head.appendChild(style);
+}
 </script>
 
 <template>
@@ -645,18 +716,22 @@ async function handelSetsClick() {
     class="rounded-sm border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
       <p class="text-2xl font-black">QPro Previewer for IIDX 31</p>
-      <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] sm:w-[25vw] h-auto"></canvas>
+      <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] md:w-[25vw] h-auto"></canvas>
       <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('face')" class=" w-16">Face</el-button>
-          <p class=" font-black mx-2 text-center w-32">{{ nameObj.face }}</p>
+          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p class="font-black inline-block face-marquee">{{ nameObj.face }}</p>
+          </div>
           <el-button :type="copyButtonTypeMap['face'].value" :icon="copyButtonIconMap['face'].value"
             @click="copyCode('face')" class=" w-22">{{
               copyButtonTextMap['face'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('hair')" class=" w-16">Hair</el-button>
-          <p class=" font-black mx-2 text-center w-32">{{ nameObj.hair }}</p>
+          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p class="font-black inline-block hair-marquee">{{ nameObj.hair }}</p>
+          </div>
           <el-button :type="copyButtonTypeMap['hair'].value" :icon="copyButtonIconMap['hair'].value"
             @click="copyCode('hair')" class=" w-22">{{
               copyButtonTextMap['hair'] }}</el-button>
@@ -664,23 +739,26 @@ async function handelSetsClick() {
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('head')" class=" w-16">Head</el-button>
           <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block animate-marquee-pingpong">{{ nameObj.head }}</p>
+            <p class="font-black inline-block head-marquee">{{ nameObj.head }}</p>
           </div>
-
           <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value"
             @click="copyCode('head')" class=" w-22">{{
               copyButtonTextMap['head'] }}</el-button>
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('body')" class=" w-16">Body</el-button>
-          <p class=" font-black mx-2 text-center w-32">{{ nameObj.body }}</p>
+          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p class="font-black inline-block body-marquee">{{ nameObj.body }}</p>
+          </div>
           <el-button :type="copyButtonTypeMap['body'].value" :icon="copyButtonIconMap['body'].value"
             @click="copyCode('body')" class=" w-22">{{
               copyButtonTextMap['body'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelClick('hand')" class=" w-16">Hand</el-button>
-          <p class=" font-black mx-2 text-center w-32">{{ nameObj.hand }}</p>
+          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p class="font-black inline-block hand-marquee">{{ nameObj.hand }}</p>
+          </div>
           <el-button :type="copyButtonTypeMap['hand'].value" :icon="copyButtonIconMap['hand'].value"
             @click="copyCode('hand')" class=" w-22">{{
               copyButtonTextMap['hand'] }}</el-button>
@@ -699,7 +777,7 @@ async function handelSetsClick() {
       <p class="text-2xl mb-2 text-center border-b border-gray-300">QPro List</p>
       <div v-if="qproPreviewList" class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
-          class="md:w-[25vw] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
+          class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
           :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
           @click="codeObj[previewType] = index; changeSprite(index)">
           <img draggable="false" :src="img" alt="loading" class="object-cover" />
@@ -722,17 +800,5 @@ async function handelSetsClick() {
   position: relative;
   white-space: nowrap;
   overflow: hidden;
-}
-
-@keyframes marquee-pingpong {
-  0%   { transform: translateX(-6rem); }
-  40%  { transform: translateX(0); } /* 往右移动（容器宽度 w-32 = 8rem）*/
-  50%  { transform: translateX(0); } /* 停止 1 秒 */
-  90%  { transform: translateX(-6rem); }                 /* 往左移回来 */
-  100% { transform: translateX(-6rem); }                 /* 停止 1 秒 */
-}
-
-.animate-marquee-pingpong {
-  animation: marquee-pingpong 6s ease-in-out infinite;
 }
 </style>
