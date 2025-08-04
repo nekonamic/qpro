@@ -693,7 +693,7 @@ function addMarquee(nameLength: number, styleId: string) {
 <template>
   <el-dialog v-model="rending" width="500" class=" max-w-[90vw]" :show-close=false :close-on-click-modal=false
     :close-on-press-escape=false>
-    <template #title>
+    <template #header>
       <div class="flex items-center">
         <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
         Rending Qpro...
@@ -704,7 +704,7 @@ function addMarquee(nameLength: number, styleId: string) {
 
   <el-dialog v-model="loadQproData" width="500" class="max-w-[90vw]" :show-close=false :close-on-click-modal=false
     :close-on-press-escape=false>
-    <template #title>
+    <template #header>
       <div class="flex items-center">
         <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
         Loading Qpro...
