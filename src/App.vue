@@ -64,7 +64,6 @@ const normalSpriteLayer: string[] = [
   "leg_r_upper",
   "leg_l_upper",
   "body_f",
-  "arm_l_upper",
   "arm_l_lower",
   "face",
   "hair_f",
@@ -134,13 +133,13 @@ const specialSpriteLayer: string[] = [
 ]
 
 const specialSpriteCode: number[] = [
+  4,
   46,
   47,
   49,
   55,
   56,
   57,
-  58,
   59,
   60,
   61,
@@ -163,26 +162,63 @@ const specialSpriteCode: number[] = [
   83,
   85
 ]
-
-const qp_tricorosailor_SpriteLayer: string[] = [
+// 157,171
+const qp_erfqueen_empqueen_SpriteLayer: string[] = [
   "hair_b",
   "head_b",
-  "body_b",
-  "arm_r_upper_special",
-  "arm_r_lower_special",
-  "leg_l_lower_special",
+  "qp_uni_body_b",
+  "qp_erfqueen_empqueen_arm_r_upper",
+  "qp_erfqueen_empqueen_arm_r_lower",
   "hand_r",
-  "leg_r_lower_special",
-  "leg_r_upper_special",
-  "leg_l_upper_special",
-  "body_f",
-  "arm_l_upper_special",
-  "arm_l_lower_special",
+  "qp_uni_body_f",
+  "qp_erfqueen_empqueen_arm_l_upper",
+  "qp_erfqueen_empqueen_arm_l_lower",
   "face",
   "hair_f",
   "hand_l",
   "head_f"
 ]
+// 325
+const qp_virusfunk_SpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b",
+  "qp_virusfunk_arm_r_upper",
+  "qp_virusfunk_arm_r_lower",
+  "qp_virusfunk_leg_l_lower",
+  "hand_r",
+  "qp_virusfunk_leg_r_lower",
+  "qp_virusfunk_leg_r_upper",
+  "qp_virusfunk_leg_l_upper",
+  "body_f",
+  "qp_virusfunk_arm_l_upper",
+  "qp_virusfunk_arm_l_lower",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+// 329
+const qp_uni_SpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "qp_uni_body_b",
+  "qp_uni_arm_r_upper",
+  "qp_uni_arm_r_lower",
+  "qp_uni_leg_l_lower",
+  "hand_r",
+  "qp_uni_leg_r_lower",
+  "qp_uni_leg_r_upper",
+  "qp_uni_leg_l_upper",
+  "qp_uni_body_f",
+  "qp_uni_arm_l_upper",
+  "qp_uni_arm_l_lower",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
 
 
 const spriteData: spriteItem[] = [
@@ -219,6 +255,14 @@ const spriteData: spriteItem[] = [
     size: [260, 352],
   },
   {
+    // qp_uni_body_b
+    type: "qp_uni_body_b",
+    image: "",
+    position: [388, 352],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
     // body_b_special
     type: "body_b_special",
     image: "",
@@ -235,6 +279,30 @@ const spriteData: spriteItem[] = [
     size: [132, 194],
   },
   {
+    // qp_uni_arm_r_upper
+    type: "qp_uni_arm_r_upper",
+    image: "",
+    position: [648, 352],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
+    // qp_virusfunk_arm_r_upper
+    type: "qp_virusfunk_arm_r_upper",
+    image: "",
+    position: [768, 404],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
+    // qp_erfqueen_empqueen_arm_r_upper
+    type: "qp_erfqueen_empqueen_arm_r_upper",
+    image: "",
+    position: [652, 0],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
     // arm_r_lower
     type: "arm_r_lower",
     image: "",
@@ -243,10 +311,50 @@ const spriteData: spriteItem[] = [
     size: [132, 194],
   },
   {
+    // qp_uni_arm_r_lower
+    type: "qp_uni_arm_r_lower",
+    image: "",
+    position: [780, 352],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
+    // qp_virusfunk_arm_r_lower
+    type: "qp_virusfunk_arm_r_lower",
+    image: "",
+    position: [0, 554],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
+    // qp_erfqueen_empqueen_arm_r_lower
+    type: "qp_erfqueen_empqueen_arm_r_lower",
+    image: "",
+    position: [784, 0],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
     // leg_l_lower
     type: "leg_l_lower",
     image: "",
     position: [662, 326],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_uni_leg_l_lower
+    type: "qp_uni_leg_l_lower",
+    image: "",
+    position: [284, 354],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_virusfunk_leg_l_lower
+    type: "qp_virusfunk_leg_l_lower",
+    image: "",
+    position: [408, 784],
     drawAt: [182, 243],
     size: [102, 132],
   },
@@ -291,6 +399,22 @@ const spriteData: spriteItem[] = [
     size: [102, 132],
   },
   {
+    // qp_uni_leg_r_lower
+    type: "qp_uni_leg_r_lower",
+    image: "",
+    position: [908, 132],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_virusfunk_leg_r_lower
+    type: "qp_virusfunk_leg_r_lower",
+    image: "",
+    position: [722, 776],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
     // leg_r_upper
     type: "leg_r_upper",
     image: "",
@@ -299,10 +423,42 @@ const spriteData: spriteItem[] = [
     size: [102, 132],
   },
   {
+    // qp_uni_leg_r_upper
+    type: "qp_uni_leg_r_upper",
+    image: "",
+    position: [908, 0],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_virusfunk_leg_r_upper
+    type: "qp_virusfunk_leg_r_upper",
+    image: "",
+    position: [306, 748],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
     // leg_l_upper
     type: "leg_l_upper",
     image: "",
     position: [866, 194],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_uni_leg_l_upper
+    type: "qp_uni_leg_l_upper",
+    image: "",
+    position: [912, 264],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // qp_virusfunk_leg_l_upper
+    type: "qp_virusfunk_leg_l_upper",
+    image: "",
+    position: [824, 776],
     drawAt: [182, 243],
     size: [102, 132],
   },
@@ -339,6 +495,14 @@ const spriteData: spriteItem[] = [
     size: [260, 352],
   },
   {
+    // qp_uni_body_f
+    type: "qp_uni_body_f",
+    image: "",
+    position: [648, 0],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
     // arm_l_upper
     type: "arm_l_upper",
     image: "",
@@ -347,10 +511,58 @@ const spriteData: spriteItem[] = [
     size: [142, 194],
   },
   {
+    // qp_uni_arm_l_upper
+    type: "qp_uni_arm_l_upper",
+    image: "",
+    position: [0, 352],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
+    // qp_virusfunk_arm_l_upper
+    type: "qp_virusfunk_arm_l_upper",
+    image: "",
+    position: [132, 554],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
+    // qp_erfqueen_empqueen_arm_l_upper
+    type: "qp_erfqueen_empqueen_arm_l_upper",
+    image: "",
+    position: [520, 194],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
     // arm_l_lower
     type: "arm_l_lower",
     image: "",
     position: [520, 194],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // qp_uni_arm_l_lower
+    type: "qp_uni_arm_l_lower",
+    image: "",
+    position: [142, 352],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // qp_virusfunk_arm_l_lower
+    type: "qp_virusfunk_arm_l_lower",
+    image: "",
+    position: [274, 554],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // qp_erfqueen_empqueen_arm_l_lower
+    type: "qp_erfqueen_empqueen_arm_l_lower",
+    image: "",
+    position: [662, 194],
     drawAt: [203, 184],
     size: [142, 194],
   },
@@ -428,248 +640,7 @@ const spriteData: spriteItem[] = [
   }
 ]
 
-const renderSpriteData: spriteItem[] = [
-  {
-    // hair_b
-    type: "hair_b",
-    image: "",
-    position: [256, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // head_b
-    type: "head_b",
-    image: "",
-    position: [512, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // qp_su30_fan_head_b
-    type: "qp_su30_fan_head_b",
-    image: "",
-    position: [524, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // body_b
-    type: "body_b",
-    image: "",
-    position: [256, 0],
-    drawAt: [84, 24],
-    size: [260, 352],
-  },
-  {
-    // body_b_special
-    type: "body_b_special",
-    image: "",
-    position: [778, 132],
-    drawAt: [84, 24],
-    size: [260, 352],
-  },
-  {
-    // arm_r_upper
-    type: "arm_r_upper",
-    image: "",
-    position: [520, 0],
-    drawAt: [81, 181],
-    size: [132, 194],
-  },
-  {
-    // arm_r_lower
-    type: "arm_r_lower",
-    image: "",
-    position: [652, 0],
-    drawAt: [79, 184],
-    size: [132, 194],
-  },
-  {
-    // leg_l_lower
-    type: "leg_l_lower",
-    image: "",
-    position: [662, 326],
-    drawAt: [182, 243],
-    size: [102, 132],
-  },
-  {
-    // arm_r_upper_special
-    type: "arm_r_upper_special",
-    image: "",
-    position: [260, 0],
-    drawAt: [81, 181],
-    size: [132, 194],
-  },
-  {
-    // arm_r_lower_special
-    type: "arm_r_lower_special",
-    image: "",
-    position: [260, 194],
-    drawAt: [79, 184],
-    size: [132, 194],
-  },
-  {
-    // leg_l_lower_special
-    type: "leg_l_lower_special",
-    image: "",
-    position: [676, 132],
-    drawAt: [182, 243],
-    size: [102, 132],
-  },
-  {
-    // hand_r
-    type: "hand_r",
-    image: "",
-    position: [0, 0],
-    drawAt: [39, 27],
-    size: [212, 352],
-  },
-  {
-    // leg_r_lower
-    type: "leg_r_lower",
-    image: "",
-    position: [764, 194],
-    drawAt: [125, 243],
-    size: [102, 132],
-  },
-  {
-    // leg_r_upper
-    type: "leg_r_upper",
-    image: "",
-    position: [662, 194],
-    drawAt: [125, 243],
-    size: [102, 132],
-  },
-  {
-    // leg_l_upper
-    type: "leg_l_upper",
-    image: "",
-    position: [866, 194],
-    drawAt: [182, 243],
-    size: [102, 132],
-  },
-  {
-    // leg_r_lower_special
-    type: "leg_r_lower_special",
-    image: "",
-    position: [778, 0],
-    drawAt: [125, 243],
-    size: [102, 132],
-  },
-  {
-    // leg_r_upper_special
-    type: "leg_r_upper_special",
-    image: "",
-    position: [676, 0],
-    drawAt: [125, 243],
-    size: [102, 132],
-  },
-  {
-    // leg_l_upper_special
-    type: "leg_l_upper_special",
-    image: "",
-    position: [880, 0],
-    drawAt: [182, 243],
-    size: [102, 132],
-  },
-  {
-    // body_f
-    type: "body_f",
-    image: "",
-    position: [0, 0],
-    drawAt: [84, 24],
-    size: [260, 352],
-  },
-  {
-    // arm_l_upper
-    type: "arm_l_upper",
-    image: "",
-    position: [784, 0],
-    drawAt: [202, 181],
-    size: [142, 194],
-  },
-  {
-    // arm_l_lower
-    type: "arm_l_lower",
-    image: "",
-    position: [520, 194],
-    drawAt: [203, 184],
-    size: [142, 194],
-  },
-  {
-    // arm_l_upper_special
-    type: "arm_l_upper_special",
-    image: "",
-    position: [392, 0],
-    drawAt: [202, 181],
-    size: [142, 194],
-  },
-  {
-    // arm_l_lower_special
-    type: "arm_l_lower_special",
-    image: "",
-    position: [534, 0],
-    drawAt: [203, 184],
-    size: [142, 194],
-  },
-  {
-    // face
-    type: "face",
-    image: "",
-    position: [0, 0],
-    drawAt: [140, 61],
-    size: [150, 158],
-  },
-  {
-    // qp_su31_variety_face
-    type: "qp_su31_variety_face",
-    image: "",
-    position: [0, 0],
-    drawAt: [89, 52],
-    size: [254, 218],
-  },
-  {
-    // hair_f
-    type: "hair_f",
-    image: "",
-    position: [0, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // hand_l
-    type: "hand_l",
-    image: "",
-    position: [212, 0],
-    drawAt: [182, 27],
-    size: [162, 352],
-  },
-  {
-    // head_f
-    type: "head_f",
-    image: "",
-    position: [0, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // qp_su30_fan_head_f1
-    type: "qp_su30_fan_head_f1",
-    image: "",
-    position: [262, 0],
-    drawAt: [83, 25],
-    size: [262, 352],
-  },
-  {
-    // qp_su30_fan_head_f2
-    type: "qp_su30_fan_head_f2",
-    image: "",
-    position: [0, 0],
-    drawAt: [92, 96],
-    size: [262, 352],
-  }
-]
+let renderSpriteData: spriteItem[] = []
 
 let codeObj: qproCode = {
   face: 0,
@@ -850,28 +821,88 @@ onMounted(async () => {
   targetSpriteData = spriteData.find(item => item.type === "qp_su30_fan_head_b")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
-  // qp_su30_fan_head_f1
-  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_f1")
-  targetSpriteData!.image = targetQproData!.webp_base64;
-  // qp_su30_fan_head_f2
-  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_f2")
-  targetSpriteData!.image = targetQproData!.webp_base64;
-  // qp_su30_fan_head_b
-  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_b")
-  targetSpriteData!.image = targetQproData!.webp_base64;
-
-
-
   // qp_su31_variety_face
   targetQproData = qproData.face.find(item => item.id === 266)
   // qp_su31_variety_face
   targetSpriteData = spriteData.find(item => item.type === "qp_su31_variety_face")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
-  // qp_su31_variety_face
-  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su31_variety_face")
+  // qp_erfqueen_empqueen
+  targetQproData = qproData.body.find(item => item.id === 157)
+  // qp_erfqueen_empqueen_arm_r_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_erfqueen_empqueen_arm_r_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_erfqueen_empqueen_arm_r_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_erfqueen_empqueen_arm_r_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_erfqueen_empqueen_arm_l_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_erfqueen_empqueen_arm_l_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_erfqueen_empqueen_arm_l_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_erfqueen_empqueen_arm_l_lower")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
+  // qp_virusfunk
+  targetQproData = qproData.body.find(item => item.id === 325)
+  // qp_virusfunk_arm_r_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_arm_r_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_arm_r_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_arm_r_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_arm_l_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_arm_l_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_arm_l_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_arm_l_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_leg_r_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_leg_r_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_leg_r_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_leg_r_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_leg_l_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_leg_l_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_virusfunk_leg_l_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_virusfunk_leg_l_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+
+  // qp_uni
+  targetQproData = qproData.body.find(item => item.id === 329)
+  // qp_uni_body_b
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_body_b")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_body_f
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_body_f")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_arm_r_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_arm_r_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_arm_r_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_arm_r_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_arm_l_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_arm_l_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_arm_l_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_arm_l_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_leg_r_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_leg_r_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_leg_r_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_leg_r_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_leg_l_upper
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_leg_l_upper")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_uni_leg_l_lower
+  targetSpriteData = spriteData.find(item => item.type === "qp_uni_leg_l_lower")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+
+  renderSpriteData = [...spriteData]
   await renderSprites(qproCanvas.value, codeObj)
 })
 
@@ -930,9 +961,9 @@ async function renderSprites(
 
     // arm & leg
     if (specialSpriteCode.includes(code.body)) {
-    // body_b
-    targetSpriteData = spriteData.find(item => item.type === "body_b_special")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = spriteData.find(item => item.type === "body_b_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = spriteData.find(item => item.type === "arm_r_upper_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -958,9 +989,9 @@ async function renderSprites(
       targetSpriteData = spriteData.find(item => item.type === "leg_l_lower_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
-    // body_b
-    targetSpriteData = spriteData.find(item => item.type === "body_b")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = spriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = spriteData.find(item => item.type === "arm_r_upper")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1031,9 +1062,9 @@ async function renderSprites(
 
     // arm & leg
     if (specialSpriteCode.includes(code.body)) {
-    // body_b
-    targetSpriteData = renderSpriteData.find(item => item.type === "body_b_upper_special")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1059,9 +1090,9 @@ async function renderSprites(
       targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
-    // body_b
-    targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1135,9 +1166,9 @@ async function renderSprites(
 
     // arm & leg
     if (specialSpriteCode.includes(code.body)) {
-    // body_b
-    targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1163,9 +1194,9 @@ async function renderSprites(
       targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
-    // body_b
-    targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
       // arm_r_upper
       targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
       targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1238,9 +1269,9 @@ async function renderSprites(
 
       // arm & leg
       if (specialSpriteCode.includes(code.body)) {
-      // body_b
-      targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
-      targetSpriteData!.image = targetQproData!.webp_base64;
+        // body_b
+        targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
         // arm_r_upper
         targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
         targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1266,9 +1297,9 @@ async function renderSprites(
         targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
         targetSpriteData!.image = targetQproData!.webp_base64;
       } else {
-      // body_b
-      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
-      targetSpriteData!.image = targetQproData!.webp_base64;
+        // body_b
+        targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+        targetSpriteData!.image = targetQproData!.webp_base64;
         // arm_r_upper
         targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
         targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1308,13 +1339,16 @@ async function renderSprites(
   }
 
   for (const sprite of sprites) {
-    if ((code.head != 356 && code.head != 266 && !specialSpriteCode.includes(code.body) && normalSpriteLayer.includes(sprite.type)) ||
+    if ((code.head != 356 && code.face != 266 && code.body != 171 && code.body != 157 && code.body != 329 && !specialSpriteCode.includes(code.body) && normalSpriteLayer.includes(sprite.type)) ||
       (code.head === 356 && qp_su30_fan_SpriteLayer.includes(sprite.type)) ||
       (code.face === 266 && qp_su31_variety_SpriteLayer.includes(sprite.type)) ||
+      ((code.body === 171 || code.body === 157) && qp_erfqueen_empqueen_SpriteLayer.includes(sprite.type)) ||
+      (code.body === 325 && qp_virusfunk_SpriteLayer.includes(sprite.type)) ||
+      (code.body === 329 && qp_uni_SpriteLayer.includes(sprite.type)) ||
       (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type))
     ) {
-      const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
       console.log(sprite.type)
+      const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
       const [sx, sy] = sprite.position
       const [dx, dy] = sprite.drawAt
       const [dw, dh] = sprite.size
