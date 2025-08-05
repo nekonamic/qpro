@@ -52,6 +52,139 @@ let qproData: QproDataL1 = {
 
 type QproKey = "head" | "hair" | "face" | "hand" | "body";
 
+const normalSpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b",
+  "arm_r_upper",
+  "arm_r_lower",
+  "leg_l_lower",
+  "hand_r",
+  "leg_r_lower",
+  "leg_r_upper",
+  "leg_l_upper",
+  "body_f",
+  "arm_l_upper",
+  "arm_l_lower",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
+const qp_su30_fan_SpriteLayer: string[] = [
+  "hair_b",
+  "qp_su30_fan_head_b",
+  "body_b",
+  "arm_r_upper",
+  "arm_r_lower",
+  "leg_l_lower",
+  "hand_r",
+  "leg_r_lower",
+  "leg_r_upper",
+  "leg_l_upper",
+  "body_f",
+  "arm_l_upper",
+  "arm_l_lower",
+  "face",
+  "hair_f",
+  "hand_l",
+  "qp_su30_fan_head_f1",
+  "qp_su30_fan_head_f2",
+]
+
+const qp_su31_variety_SpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b",
+  "arm_r_upper",
+  "arm_r_lower",
+  "leg_l_lower",
+  "hand_r",
+  "leg_r_lower",
+  "leg_r_upper",
+  "leg_l_upper",
+  "body_f",
+  "arm_l_upper",
+  "arm_l_lower",
+  "qp_su31_variety_face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
+const specialSpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b_special",
+  "arm_r_upper_special",
+  "arm_r_lower_special",
+  "leg_l_lower_special",
+  "hand_r",
+  "leg_r_lower_special",
+  "leg_r_upper_special",
+  "leg_l_upper_special",
+  "body_f",
+  "arm_l_upper_special",
+  "arm_l_lower_special",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
+const specialSpriteCode: number[] = [
+  46,
+  47,
+  49,
+  55,
+  56,
+  57,
+  58,
+  59,
+  60,
+  61,
+  62,
+  63,
+  64,
+  65,
+  66,
+  67,
+  68,
+  69,
+  71,
+  72,
+  75,
+  76,
+  77,
+  78,
+  80,
+  81,
+  83,
+  85
+]
+
+const qp_tricorosailor_SpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b",
+  "arm_r_upper_special",
+  "arm_r_lower_special",
+  "leg_l_lower_special",
+  "hand_r",
+  "leg_r_lower_special",
+  "leg_r_upper_special",
+  "leg_l_upper_special",
+  "body_f",
+  "arm_l_upper_special",
+  "arm_l_lower_special",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
+
 const spriteData: spriteItem[] = [
   {
     // hair_b
@@ -86,6 +219,14 @@ const spriteData: spriteItem[] = [
     size: [260, 352],
   },
   {
+    // body_b_special
+    type: "body_b_special",
+    image: "",
+    position: [778, 132],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
     // arm_r_upper
     type: "arm_r_upper",
     image: "",
@@ -106,6 +247,30 @@ const spriteData: spriteItem[] = [
     type: "leg_l_lower",
     image: "",
     position: [662, 326],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // arm_r_upper_special
+    type: "arm_r_upper_special",
+    image: "",
+    position: [260, 0],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
+    // arm_r_lower_special
+    type: "arm_r_lower_special",
+    image: "",
+    position: [260, 194],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
+    // leg_l_lower_special
+    type: "leg_l_lower_special",
+    image: "",
+    position: [676, 132],
     drawAt: [182, 243],
     size: [102, 132],
   },
@@ -142,6 +307,30 @@ const spriteData: spriteItem[] = [
     size: [102, 132],
   },
   {
+    // leg_r_lower_special
+    type: "leg_r_lower_special",
+    image: "",
+    position: [778, 0],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_r_upper_special
+    type: "leg_r_upper_special",
+    image: "",
+    position: [676, 0],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_l_upper_special
+    type: "leg_l_upper_special",
+    image: "",
+    position: [880, 0],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
     // body_f
     type: "body_f",
     image: "",
@@ -162,6 +351,265 @@ const spriteData: spriteItem[] = [
     type: "arm_l_lower",
     image: "",
     position: [520, 194],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // arm_l_upper_special
+    type: "arm_l_upper_special",
+    image: "",
+    position: [392, 0],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
+    // arm_l_lower_special
+    type: "arm_l_lower_special",
+    image: "",
+    position: [534, 0],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // face
+    type: "face",
+    image: "",
+    position: [0, 0],
+    drawAt: [140, 61],
+    size: [150, 158],
+  },
+  {
+    // qp_su31_variety_face
+    type: "qp_su31_variety_face",
+    image: "",
+    position: [0, 0],
+    drawAt: [89, 52],
+    size: [254, 218],
+  },
+  {
+    // hair_f
+    type: "hair_f",
+    image: "",
+    position: [0, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // hand_l
+    type: "hand_l",
+    image: "",
+    position: [212, 0],
+    drawAt: [182, 27],
+    size: [162, 352],
+  },
+  {
+    // head_f
+    type: "head_f",
+    image: "",
+    position: [0, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // qp_su30_fan_head_f1
+    type: "qp_su30_fan_head_f1",
+    image: "",
+    position: [262, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // qp_su30_fan_head_f2
+    type: "qp_su30_fan_head_f2",
+    image: "",
+    position: [0, 0],
+    drawAt: [92, 96],
+    size: [262, 352],
+  }
+]
+
+const renderSpriteData: spriteItem[] = [
+  {
+    // hair_b
+    type: "hair_b",
+    image: "",
+    position: [256, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // head_b
+    type: "head_b",
+    image: "",
+    position: [512, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // qp_su30_fan_head_b
+    type: "qp_su30_fan_head_b",
+    image: "",
+    position: [524, 0],
+    drawAt: [83, 25],
+    size: [262, 352],
+  },
+  {
+    // body_b
+    type: "body_b",
+    image: "",
+    position: [256, 0],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
+    // body_b_special
+    type: "body_b_special",
+    image: "",
+    position: [778, 132],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
+    // arm_r_upper
+    type: "arm_r_upper",
+    image: "",
+    position: [520, 0],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
+    // arm_r_lower
+    type: "arm_r_lower",
+    image: "",
+    position: [652, 0],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
+    // leg_l_lower
+    type: "leg_l_lower",
+    image: "",
+    position: [662, 326],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // arm_r_upper_special
+    type: "arm_r_upper_special",
+    image: "",
+    position: [260, 0],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
+    // arm_r_lower_special
+    type: "arm_r_lower_special",
+    image: "",
+    position: [260, 194],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
+    // leg_l_lower_special
+    type: "leg_l_lower_special",
+    image: "",
+    position: [676, 132],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // hand_r
+    type: "hand_r",
+    image: "",
+    position: [0, 0],
+    drawAt: [39, 27],
+    size: [212, 352],
+  },
+  {
+    // leg_r_lower
+    type: "leg_r_lower",
+    image: "",
+    position: [764, 194],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_r_upper
+    type: "leg_r_upper",
+    image: "",
+    position: [662, 194],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_l_upper
+    type: "leg_l_upper",
+    image: "",
+    position: [866, 194],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_r_lower_special
+    type: "leg_r_lower_special",
+    image: "",
+    position: [778, 0],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_r_upper_special
+    type: "leg_r_upper_special",
+    image: "",
+    position: [676, 0],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_l_upper_special
+    type: "leg_l_upper_special",
+    image: "",
+    position: [880, 0],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // body_f
+    type: "body_f",
+    image: "",
+    position: [0, 0],
+    drawAt: [84, 24],
+    size: [260, 352],
+  },
+  {
+    // arm_l_upper
+    type: "arm_l_upper",
+    image: "",
+    position: [784, 0],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
+    // arm_l_lower
+    type: "arm_l_lower",
+    image: "",
+    position: [520, 194],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // arm_l_upper_special
+    type: "arm_l_upper_special",
+    image: "",
+    position: [392, 0],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
+    // arm_l_lower_special
+    type: "arm_l_lower_special",
+    image: "",
+    position: [534, 0],
     drawAt: [203, 184],
     size: [142, 194],
   },
@@ -340,9 +788,9 @@ let previewType: QproKey
 
 const qproCanvas = ref<HTMLCanvasElement | null>(null)
 
-let tempCanvas: HTMLCanvasElement = document.createElement('canvas');
-tempCanvas.width = 384;
-tempCanvas.height = 400;
+let renderCanvas: HTMLCanvasElement = document.createElement('canvas');
+renderCanvas.width = 384;
+renderCanvas.height = 400;
 
 const rending = ref<Boolean>(false)
 
@@ -358,9 +806,9 @@ async function handelClick(option: QproKey) {
 
   for (let i = 0; i < qproData[option].length; i++) {
     previewCodeObj[option] = i;
-    await renderSprites(tempCanvas, previewCodeObj, option);
+    await renderSprites(renderCanvas, previewCodeObj, option);
     await new Promise<void>((resolve) => {
-      tempCanvas.toBlob((blob) => {
+      renderCanvas.toBlob((blob) => {
         if (blob != null) {
           qproPreviewList.value.push(URL.createObjectURL(blob));
         }
@@ -402,10 +850,26 @@ onMounted(async () => {
   targetSpriteData = spriteData.find(item => item.type === "qp_su30_fan_head_b")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
+  // qp_su30_fan_head_f1
+  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_f1")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_su30_fan_head_f2
+  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_f2")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+  // qp_su30_fan_head_b
+  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su30_fan_head_b")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+
+
+
   // qp_su31_variety_face
   targetQproData = qproData.face.find(item => item.id === 266)
   // qp_su31_variety_face
   targetSpriteData = spriteData.find(item => item.type === "qp_su31_variety_face")
+  targetSpriteData!.image = targetQproData!.webp_base64;
+
+  // qp_su31_variety_face
+  targetSpriteData = renderSpriteData.find(item => item.type === "qp_su31_variety_face")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
   await renderSprites(qproCanvas.value, codeObj)
@@ -427,21 +891,19 @@ async function renderSprites(
   let targetQproData
   let targetSpriteData
 
-  if (type === undefined) {
+  let sprites
+
+  if (type === undefined && isRendingSet === undefined) {
     // face
     targetQproData = qproData.face.find(item => item.id === code.face)
-    if (!isRendingSet) {
-      nameObj.value.face = targetQproData!.name;
-    }
+    nameObj.value.face = targetQproData!.name;
     // face
     targetSpriteData = spriteData.find(item => item.type === "face")
     targetSpriteData!.image = targetQproData!.webp_base64;
 
     // hair
     targetQproData = qproData.hair.find(item => item.id === code.hair)
-    if (!isRendingSet) {
-      nameObj.value.hair = targetQproData!.name;
-    }
+    nameObj.value.hair = targetQproData!.name;
     // hair_f
     targetSpriteData = spriteData.find(item => item.type === "hair_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -451,9 +913,7 @@ async function renderSprites(
 
     // head
     targetQproData = qproData.head.find(item => item.id === code.head)
-    if (!isRendingSet) {
-      nameObj.value.head = targetQproData!.name;
-    }
+    nameObj.value.head = targetQproData!.name;
     // head_f
     targetSpriteData = spriteData.find(item => item.type === "head_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -463,129 +923,398 @@ async function renderSprites(
 
     // body
     targetQproData = qproData.body.find(item => item.id === code.body)
-    if (!isRendingSet) {
-      nameObj.value.body = targetQproData!.name;
-    }
+    nameObj.value.body = targetQproData!.name;
     // body_f
     targetSpriteData = spriteData.find(item => item.type === "body_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // arm & leg
+    if (specialSpriteCode.includes(code.body)) {
+    // body_b
+    targetSpriteData = spriteData.find(item => item.type === "body_b_special")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else {
     // body_b
     targetSpriteData = spriteData.find(item => item.type === "body_b")
     targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_r_upper
-    targetSpriteData = spriteData.find(item => item.type === "arm_r_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_r_lower
-    targetSpriteData = spriteData.find(item => item.type === "arm_r_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_l_upper
-    targetSpriteData = spriteData.find(item => item.type === "arm_l_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_l_lower
-    targetSpriteData = spriteData.find(item => item.type === "arm_l_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_r_upper
-    targetSpriteData = spriteData.find(item => item.type === "leg_r_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_r_lower
-    targetSpriteData = spriteData.find(item => item.type === "leg_r_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_l_upper
-    targetSpriteData = spriteData.find(item => item.type === "leg_l_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_l_lower
-    targetSpriteData = spriteData.find(item => item.type === "leg_l_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    }
 
     // hand
     targetQproData = qproData.hand.find(item => item.id === code.hand)
-    if (!isRendingSet) {
-      nameObj.value.hand = targetQproData!.name;
-    }
+    nameObj.value.hand = targetQproData!.name;
     // hand_r
     targetSpriteData = spriteData.find(item => item.type === "hand_r")
     targetSpriteData!.image = targetQproData!.webp_base64;
     // hand_l
     targetSpriteData = spriteData.find(item => item.type === "hand_l")
     targetSpriteData!.image = targetQproData!.webp_base64;
-  }
 
-  if (type === "face") {
+    sprites = spriteData
+  } else if (isRendingSet) {
     // face
     targetQproData = qproData.face.find(item => item.id === code.face)
     // face
-    targetSpriteData = spriteData.find(item => item.type === "face")
+    targetSpriteData = renderSpriteData.find(item => item.type === "face")
     targetSpriteData!.image = targetQproData!.webp_base64;
-  } else if (type === "hair") {
+
     // hair
     targetQproData = qproData.hair.find(item => item.id === code.hair)
     // hair_f
-    targetSpriteData = spriteData.find(item => item.type === "hair_f")
+    targetSpriteData = renderSpriteData.find(item => item.type === "hair_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
     // hair_b
-    targetSpriteData = spriteData.find(item => item.type === "hair_b")
+    targetSpriteData = renderSpriteData.find(item => item.type === "hair_b")
     targetSpriteData!.image = targetQproData!.webp_base64;
-  } else if (type === "head") {
+
     // head
     targetQproData = qproData.head.find(item => item.id === code.head)
     // head_f
-    targetSpriteData = spriteData.find(item => item.type === "head_f")
+    targetSpriteData = renderSpriteData.find(item => item.type === "head_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
     // head_b
-    targetSpriteData = spriteData.find(item => item.type === "head_b")
+    targetSpriteData = renderSpriteData.find(item => item.type === "head_b")
     targetSpriteData!.image = targetQproData!.webp_base64;
-  } else if (type === "body") {
+
     // body
     targetQproData = qproData.body.find(item => item.id === code.body)
     // body_f
-    targetSpriteData = spriteData.find(item => item.type === "body_f")
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // arm & leg
+    if (specialSpriteCode.includes(code.body)) {
     // body_b
-    targetSpriteData = spriteData.find(item => item.type === "body_b")
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_b_upper_special")
     targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_r_upper
-    targetSpriteData = spriteData.find(item => item.type === "arm_r_upper")
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else {
+    // body_b
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
     targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_r_lower
-    targetSpriteData = spriteData.find(item => item.type === "arm_r_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_l_upper
-    targetSpriteData = spriteData.find(item => item.type === "arm_l_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // arm_l_lower
-    targetSpriteData = spriteData.find(item => item.type === "arm_l_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_r_upper
-    targetSpriteData = spriteData.find(item => item.type === "leg_r_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_r_lower
-    targetSpriteData = spriteData.find(item => item.type === "leg_r_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_l_upper
-    targetSpriteData = spriteData.find(item => item.type === "leg_l_upper")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-    // leg_l_lower
-    targetSpriteData = spriteData.find(item => item.type === "leg_l_lower")
-    targetSpriteData!.image = targetQproData!.webp_base64;
-  } else if (type === "hand") {
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    }
+
     // hand
     targetQproData = qproData.hand.find(item => item.id === code.hand)
     // hand_r
-    targetSpriteData = spriteData.find(item => item.type === "hand_r")
+    targetSpriteData = renderSpriteData.find(item => item.type === "hand_r")
     targetSpriteData!.image = targetQproData!.webp_base64;
     // hand_l
-    targetSpriteData = spriteData.find(item => item.type === "hand_l")
+    targetSpriteData = renderSpriteData.find(item => item.type === "hand_l")
     targetSpriteData!.image = targetQproData!.webp_base64;
+
+    sprites = renderSpriteData
+  } else if (code[type!] === 0) {
+    // face
+    targetQproData = qproData.face.find(item => item.id === code.face)
+    if (!isRendingSet) nameObj.value.face = targetQproData!.name;
+    // face
+    targetSpriteData = renderSpriteData.find(item => item.type === "face")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // hair
+    targetQproData = qproData.hair.find(item => item.id === code.hair)
+    if (!isRendingSet) nameObj.value.hair = targetQproData!.name;
+    // hair_f
+    targetSpriteData = renderSpriteData.find(item => item.type === "hair_f")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+    // hair_b
+    targetSpriteData = renderSpriteData.find(item => item.type === "hair_b")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // head
+    targetQproData = qproData.head.find(item => item.id === code.head)
+    if (!isRendingSet) nameObj.value.head = targetQproData!.name;
+    // head_f
+    targetSpriteData = renderSpriteData.find(item => item.type === "head_f")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+    // head_b
+    targetSpriteData = renderSpriteData.find(item => item.type === "head_b")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // body
+    targetQproData = qproData.body.find(item => item.id === code.body)
+    if (!isRendingSet) nameObj.value.body = targetQproData!.name;
+    // body_f
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_f")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+
+    // arm & leg
+    if (specialSpriteCode.includes(code.body)) {
+    // body_b
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else {
+    // body_b
+    targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    }
+
+
+    // hand
+    targetQproData = qproData.hand.find(item => item.id === code.hand)
+    if (!isRendingSet) nameObj.value.hand = targetQproData!.name;
+    // hand_r
+    targetSpriteData = renderSpriteData.find(item => item.type === "hand_r")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+    // hand_l
+    targetSpriteData = renderSpriteData.find(item => item.type === "hand_l")
+    targetSpriteData!.image = targetQproData!.webp_base64;
+
+    sprites = renderSpriteData
+  } else {
+    if (type === "face") {
+      // face
+      targetQproData = qproData.face.find(item => item.id === code.face)
+      // face
+      targetSpriteData = renderSpriteData.find(item => item.type === "face")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (type === "hair") {
+      // hair
+      targetQproData = qproData.hair.find(item => item.id === code.hair)
+      // hair_f
+      targetSpriteData = renderSpriteData.find(item => item.type === "hair_f")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // hair_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "hair_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (type === "head") {
+      // head
+      targetQproData = qproData.head.find(item => item.id === code.head)
+      // head_f
+      targetSpriteData = renderSpriteData.find(item => item.type === "head_f")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // head_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "head_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (type === "body") {
+      // body
+      targetQproData = qproData.body.find(item => item.id === code.body)
+      // body_f
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_f")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+
+      // arm & leg
+      if (specialSpriteCode.includes(code.body)) {
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+      } else {
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+      }
+    } else if (type === "hand") {
+      // hand
+      targetQproData = qproData.hand.find(item => item.id === code.hand)
+      // hand_r
+      targetSpriteData = renderSpriteData.find(item => item.type === "hand_r")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // hand_l
+      targetSpriteData = renderSpriteData.find(item => item.type === "hand_l")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    }
+    sprites = renderSpriteData
   }
 
-
-  for (const sprite of spriteData) {
-    const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
-
-    if ((code.head != 356 && !(["qp_su30_fan_head_b", "qp_su30_fan_head_f1", "qp_su30_fan_head_f2", "qp_su31_variety_face"].includes(sprite.type))) ||
-      (code.head === 356 && !(["head_b", "head_f", "qp_su31_variety_face"].includes(sprite.type))) ||
-      (code.face === 266 && !(["face", "qp_su30_fan_head_b", "qp_su30_fan_head_f1", "qp_su30_fan_head_f2"].includes(sprite.type)))
+  for (const sprite of sprites) {
+    if ((code.head != 356 && code.head != 266 && !specialSpriteCode.includes(code.body) && normalSpriteLayer.includes(sprite.type)) ||
+      (code.head === 356 && qp_su30_fan_SpriteLayer.includes(sprite.type)) ||
+      (code.face === 266 && qp_su31_variety_SpriteLayer.includes(sprite.type)) ||
+      (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type))
     ) {
+      const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
+      console.log(sprite.type)
       const [sx, sy] = sprite.position
       const [dx, dy] = sprite.drawAt
       const [dw, dh] = sprite.size
@@ -674,6 +1403,13 @@ function extractCompleteQproCodes(): qproCode[] {
   });
 
   const result: qproCode[] = [];
+  result.push({
+    face: 0,
+    hair: 0,
+    head: 0,
+    body: 0,
+    hand: 0
+  })
   for (const code of map.values()) {
     if (!Object.values(code).includes(-1)) {
       result.push(code);
@@ -694,9 +1430,9 @@ async function handelSetsClick() {
 
   for (let i = 0; i < totalRendingQuery; i++) {
     previewCodeObj = setsCode[i]
-    await renderSprites(tempCanvas, previewCodeObj, undefined, true);
+    await renderSprites(renderCanvas, previewCodeObj, undefined, true);
     await new Promise<void>((resolve) => {
-      tempCanvas.toBlob((blob) => {
+      renderCanvas.toBlob((blob) => {
         if (blob != null) {
           qproPreviewList.value.push(URL.createObjectURL(blob));
         }
