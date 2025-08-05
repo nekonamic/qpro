@@ -162,15 +162,17 @@ const specialSpriteCode: number[] = [
   83,
   85
 ]
+//TODO: 89, 122
+
 // 157,171
 const qp_erfqueen_empqueen_SpriteLayer: string[] = [
   "hair_b",
   "head_b",
-  "qp_uni_body_b",
+  "body_b",
   "qp_erfqueen_empqueen_arm_r_upper",
   "qp_erfqueen_empqueen_arm_r_lower",
   "hand_r",
-  "qp_uni_body_f",
+  "body_f",
   "qp_erfqueen_empqueen_arm_l_upper",
   "qp_erfqueen_empqueen_arm_l_lower",
   "face",
@@ -1588,16 +1590,17 @@ function addMarquee(move: number, styleId: string) {
     </div>
     <div
       class=" md:ml-8 md:w-[calc(50vw+1rem)] md:min-h-[calc(100vh-8rem)] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
-      <div class="border-b border-gray-200 sticky top-0 z-50 bg-white">
-        <p class="text-2xl text-center">QPro List</p>
-        <div class="grid grid-cols-[auto_1fr] pb" v-if="qproPreviewList.length != 0">
-          <div class="size-5 mr-4">
+      <div
+        class="border-b border-gray-200 sticky top-0 z-50 bg-gray-100 grid grid-cols-[min-content_1fr] gap-4 px-2 pt-2">
+        <p class="text-xl min-w-max">QPro List</p>
+        <div class="grid grid-cols-[1fr_min-content] items-center relative bottom-0.5" v-if="qproPreviewList.length != 0">
+          <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'" class="w-[calc(100%+1rem)]" />
+          <div class="size-8">
             <img class="animate-spin" v-if="rending" src="/fish-cake.svg" alt="loading" />
           </div>
-          <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'" />
         </div>
       </div>
-      <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2 px-2">
+      <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2 px-2 mt-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
           class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl grid justify-center"
           :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
