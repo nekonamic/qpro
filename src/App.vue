@@ -162,7 +162,34 @@ const specialSpriteCode: number[] = [
   83,
   85
 ]
-//TODO: 89, 122
+
+
+
+const magickSpriteLayer: string[] = [
+  "hair_b",
+  "head_b",
+  "body_b",
+  "arm_r_upper_magick",
+  "arm_r_lower_magick",
+  "leg_l_lower_magick",
+  "hand_r",
+  "leg_r_lower_magick",
+  "leg_r_upper_magick",
+  "leg_l_upper_magick",
+  "body_f",
+  "arm_l_upper_magick",
+  "arm_l_lower_magick",
+  "face",
+  "hair_f",
+  "hand_l",
+  "head_f"
+]
+
+//89, 122
+const magickNumber: number[] = [
+  89,
+  122
+]
 
 // 157,171
 const qp_erfqueen_empqueen_SpriteLayer: string[] = [
@@ -369,6 +396,14 @@ const spriteData: spriteItem[] = [
     size: [132, 194],
   },
   {
+    // arm_r_upper_magick
+    type: "arm_r_upper_magick",
+    image: "",
+    position: [520, 0],
+    drawAt: [81, 181],
+    size: [132, 194],
+  },
+  {
     // arm_r_lower_special
     type: "arm_r_lower_special",
     image: "",
@@ -377,10 +412,26 @@ const spriteData: spriteItem[] = [
     size: [132, 194],
   },
   {
+    // arm_r_lower_magick
+    type: "arm_r_lower_magick",
+    image: "",
+    position: [652, 0],
+    drawAt: [79, 184],
+    size: [132, 194],
+  },
+  {
     // leg_l_lower_special
     type: "leg_l_lower_special",
     image: "",
     position: [676, 132],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_l_lower_magick
+    type: "leg_l_lower_magick",
+    image: "",
+    position: [662, 194],
     drawAt: [182, 243],
     size: [102, 132],
   },
@@ -473,6 +524,14 @@ const spriteData: spriteItem[] = [
     size: [102, 132],
   },
   {
+    // leg_r_lower_magick
+    type: "leg_r_lower_magick",
+    image: "",
+    position: [662, 326],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
     // leg_r_upper_special
     type: "leg_r_upper_special",
     image: "",
@@ -481,10 +540,26 @@ const spriteData: spriteItem[] = [
     size: [102, 132],
   },
   {
+    // leg_r_upper_magick
+    type: "leg_r_upper_magick",
+    image: "",
+    position: [824, 194],
+    drawAt: [125, 243],
+    size: [102, 132],
+  },
+  {
     // leg_l_upper_special
     type: "leg_l_upper_special",
     image: "",
     position: [880, 0],
+    drawAt: [182, 243],
+    size: [102, 132],
+  },
+  {
+    // leg_l_upper_magick
+    type: "leg_l_upper_magick",
+    image: "",
+    position: [764, 326],
     drawAt: [182, 243],
     size: [102, 132],
   },
@@ -577,10 +652,26 @@ const spriteData: spriteItem[] = [
     size: [142, 194],
   },
   {
+    // arm_l_upper_magick
+    type: "arm_l_upper_magick",
+    image: "",
+    position: [784, 0],
+    drawAt: [202, 181],
+    size: [142, 194],
+  },
+  {
     // arm_l_lower_special
     type: "arm_l_lower_special",
     image: "",
     position: [534, 0],
+    drawAt: [203, 184],
+    size: [142, 194],
+  },
+  {
+    // arm_l_lower_magick
+    type: "arm_l_lower_magick",
+    image: "",
+    position: [520, 194],
     drawAt: [203, 184],
     size: [142, 194],
   },
@@ -990,6 +1081,34 @@ async function renderSprites(
       // leg_l_lower
       targetSpriteData = spriteData.find(item => item.type === "leg_l_lower_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (magickNumber.includes(code.body)) {
+      // body_b
+      targetSpriteData = spriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "arm_l_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = spriteData.find(item => item.type === "leg_l_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
       // body_b
       targetSpriteData = spriteData.find(item => item.type === "body_b")
@@ -1090,6 +1209,34 @@ async function renderSprites(
       targetSpriteData!.image = targetQproData!.webp_base64;
       // leg_l_lower
       targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (magickNumber.includes(code.body)) {
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_magick")
       targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
       // body_b
@@ -1195,6 +1342,34 @@ async function renderSprites(
       // leg_l_lower
       targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
       targetSpriteData!.image = targetQproData!.webp_base64;
+    } else if (magickNumber.includes(code.body)) {
+      // body_b
+      targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // arm_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_r_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_upper
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
+      // leg_l_lower
+      targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_magick")
+      targetSpriteData!.image = targetQproData!.webp_base64;
     } else {
       // body_b
       targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
@@ -1298,6 +1473,34 @@ async function renderSprites(
         // leg_l_lower
         targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_special")
         targetSpriteData!.image = targetQproData!.webp_base64;
+      } else if (magickNumber.includes(code.body)) {
+        // body_b
+        targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_upper_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_r_lower_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_upper_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // arm_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "arm_l_lower_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_upper_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_r_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_r_lower_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_upper
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_upper_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
+        // leg_l_lower
+        targetSpriteData = renderSpriteData.find(item => item.type === "leg_l_lower_magick")
+        targetSpriteData!.image = targetQproData!.webp_base64;
       } else {
         // body_b
         targetSpriteData = renderSpriteData.find(item => item.type === "body_b")
@@ -1341,14 +1544,16 @@ async function renderSprites(
   }
 
   for (const sprite of sprites) {
-    if ((code.head != 356 && code.face != 266 && code.body != 171 && code.body != 157 && code.body != 329 && !specialSpriteCode.includes(code.body) && normalSpriteLayer.includes(sprite.type)) ||
+    if ((code.head != 356 && code.face != 266 && code.body != 171 && code.body != 157 && code.body != 329 && !specialSpriteCode.includes(code.body) && !magickNumber.includes(code.body) && normalSpriteLayer.includes(sprite.type)) ||
       (code.head === 356 && qp_su30_fan_SpriteLayer.includes(sprite.type)) ||
       (code.face === 266 && qp_su31_variety_SpriteLayer.includes(sprite.type)) ||
       ((code.body === 171 || code.body === 157) && qp_erfqueen_empqueen_SpriteLayer.includes(sprite.type)) ||
       (code.body === 325 && qp_virusfunk_SpriteLayer.includes(sprite.type)) ||
       (code.body === 329 && qp_uni_SpriteLayer.includes(sprite.type)) ||
-      (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type))
+      (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type)) ||
+      (magickNumber.includes(code.body) && magickSpriteLayer.includes(sprite.type))
     ) {
+      console.log(sprite)
       const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
       const [sx, sy] = sprite.position
       const [dx, dy] = sprite.drawAt
@@ -1593,8 +1798,10 @@ function addMarquee(move: number, styleId: string) {
       <div
         class="border-b border-gray-200 sticky top-0 z-50 bg-gray-100 grid grid-cols-[min-content_1fr] gap-4 px-2 pt-2">
         <p class="text-xl min-w-max">QPro List</p>
-        <div class="grid grid-cols-[1fr_min-content] items-center relative bottom-0.5" v-if="qproPreviewList.length != 0">
-          <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'" class="w-[calc(100%+1rem)]" />
+        <div class="grid grid-cols-[1fr_min-content] items-center relative bottom-0.5"
+          v-if="qproPreviewList.length != 0">
+          <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'"
+            class="w-[calc(100%+1rem)]" />
           <div class="size-8">
             <img class="animate-spin" v-if="rending" src="/fish-cake.svg" alt="loading" />
           </div>
