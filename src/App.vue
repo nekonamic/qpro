@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef, type Ref, type ShallowRef } from 'vue'
+import { nextTick, onMounted, ref, shallowRef, watch, type Ref, type ShallowRef } from 'vue'
 
 import type { qproCode } from './types/qproCode'
 import type { spriteItem } from './types/spriteItem'
@@ -26,6 +26,17 @@ type QproDataL1 = {
 let setsCode: qproCode[] = []
 
 let chooseSet: boolean = false
+
+const faceDivRef = ref<HTMLElement | null>(null)
+const faceRef = ref<HTMLElement | null>(null)
+const hairDivRef = ref<HTMLElement | null>(null)
+const hairRef = ref<HTMLElement | null>(null)
+const headDivRef = ref<HTMLElement | null>(null)
+const headRef = ref<HTMLElement | null>(null)
+const bodyDivRef = ref<HTMLElement | null>(null)
+const bodyRef = ref<HTMLElement | null>(null)
+const handDivRef = ref<HTMLElement | null>(null)
+const handRef = ref<HTMLElement | null>(null)
 
 const loadQproData = ref<boolean>(false)
 
@@ -228,6 +239,76 @@ const nameObj = ref<qproName>({
   hand: ""
 })
 
+watch(
+  () => nameObj.value.face,
+  async () => {
+    await nextTick()
+    if (faceRef.value) {
+      if (faceRef.value.offsetWidth - faceDivRef.value!.clientWidth > 0) {
+        addMarquee(faceRef.value.offsetWidth - faceDivRef.value!.clientWidth, "face")
+      } else {
+        removeMarquee("face")
+      }
+    }
+  }
+);
+
+watch(
+  () => nameObj.value.hair,
+  async () => {
+    await nextTick()
+    if (hairRef.value) {
+      if (hairRef.value.offsetWidth - hairDivRef.value!.clientWidth > 0) {
+        addMarquee(hairRef.value.offsetWidth - hairDivRef.value!.clientWidth, "hair")
+      } else {
+        removeMarquee("hair")
+      }
+    }
+  }
+);
+
+watch(
+  () => nameObj.value.head,
+  async () => {
+    await nextTick()
+    if (headRef.value) {
+      if (headRef.value.offsetWidth - headDivRef.value!.clientWidth > 0) {
+        addMarquee(headRef.value.offsetWidth - headDivRef.value!.clientWidth, "head")
+      } else {
+        removeMarquee("head")
+      }
+    }
+  }
+);
+
+watch(
+  () => nameObj.value.body,
+  async () => {
+    await nextTick()
+    if (bodyRef.value) {
+      if (bodyRef.value.offsetWidth - bodyDivRef.value!.clientWidth > 0) {
+        addMarquee(bodyRef.value.offsetWidth - bodyDivRef.value!.clientWidth, "body")
+      } else {
+        removeMarquee("body")
+      }
+    }
+  }
+);
+
+watch(
+  () => nameObj.value.hand,
+  async () => {
+    await nextTick()
+    if (handRef.value) {
+      if (handRef.value.offsetWidth - handDivRef.value!.clientWidth > 0) {
+        addMarquee(handRef.value.offsetWidth - handDivRef.value!.clientWidth, "hand")
+      } else {
+        removeMarquee("hand")
+      }
+    }
+  }
+);
+
 const copyButtonTypeMap: Record<QproKey, Ref<string>> = {
   head: ref<'primary' | 'success'>('primary'),
   hair: ref<'primary' | 'success'>('primary'),
@@ -351,11 +432,6 @@ async function renderSprites(
     targetQproData = qproData.face.find(item => item.id === code.face)
     if (!isRendingSet) {
       nameObj.value.face = targetQproData!.name;
-      if (nameObj.value.face.length > 8) {
-        addMarquee(nameObj.value.face.length, "face")
-      } else {
-        removeMarquee("face")
-      }
     }
     // face
     targetSpriteData = spriteData.find(item => item.type === "face")
@@ -365,11 +441,6 @@ async function renderSprites(
     targetQproData = qproData.hair.find(item => item.id === code.hair)
     if (!isRendingSet) {
       nameObj.value.hair = targetQproData!.name;
-      if (nameObj.value.hair.length > 8) {
-        addMarquee(nameObj.value.hair.length, "hair")
-      } else {
-        removeMarquee("hair")
-      }
     }
     // hair_f
     targetSpriteData = spriteData.find(item => item.type === "hair_f")
@@ -382,11 +453,6 @@ async function renderSprites(
     targetQproData = qproData.head.find(item => item.id === code.head)
     if (!isRendingSet) {
       nameObj.value.head = targetQproData!.name;
-      if (nameObj.value.head.length > 8) {
-        addMarquee(nameObj.value.head.length, "head")
-      } else {
-        removeMarquee("head")
-      }
     }
     // head_f
     targetSpriteData = spriteData.find(item => item.type === "head_f")
@@ -399,11 +465,6 @@ async function renderSprites(
     targetQproData = qproData.body.find(item => item.id === code.body)
     if (!isRendingSet) {
       nameObj.value.body = targetQproData!.name;
-      if (nameObj.value.body.length > 8) {
-        addMarquee(nameObj.value.body.length, "body")
-      } else {
-        removeMarquee("body")
-      }
     }
     // body_f
     targetSpriteData = spriteData.find(item => item.type === "body_f")
@@ -440,11 +501,6 @@ async function renderSprites(
     targetQproData = qproData.hand.find(item => item.id === code.hand)
     if (!isRendingSet) {
       nameObj.value.hand = targetQproData!.name;
-      if (nameObj.value.hand.length > 8) {
-        addMarquee(nameObj.value.hand.length, "hand")
-      } else {
-        removeMarquee("hand")
-      }
     }
     // hand_r
     targetSpriteData = spriteData.find(item => item.type === "hand_r")
@@ -661,7 +717,7 @@ function removeMarquee(styleId: string) {
   }
 }
 
-function addMarquee(nameLength: number, styleId: string) {
+function addMarquee(move: number, styleId: string) {
   styleId = styleId + "-marquee"
   const existingStyle = document.getElementById(styleId);
   if (existingStyle) {
@@ -674,11 +730,11 @@ function addMarquee(nameLength: number, styleId: string) {
   style.textContent = `
       @keyframes ${styleId} {
       
-      0%   { transform: translateX(${8 - nameLength}rem); }
+      0%   { transform: translateX(${-move}px); }
       45%  { transform: translateX(0); }
       50%  { transform: translateX(0); }
-      95%  { transform: translateX(${8 - nameLength}rem); }
-      100% { transform: translateX(${8 - nameLength}rem); }
+      95%  { transform: translateX(${-move}px); }
+      100% { transform: translateX(${-move}px); }
     }
 
     .${styleId} {
@@ -709,8 +765,8 @@ function addMarquee(nameLength: number, styleId: string) {
       <div class=" space-y-2 flex flex-col items-center justify-center">
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('face')" class=" w-16">Face</el-button>
-          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block face-marquee">{{ nameObj.face }}</p>
+          <div ref="faceDivRef" class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p ref="faceRef" class="font-black inline-block face-marquee">{{ nameObj.face }}</p>
           </div>
           <el-button :type="copyButtonTypeMap['face'].value" :icon="copyButtonIconMap['face'].value"
             @click="copyCode('face')" class=" w-22">{{
@@ -718,8 +774,8 @@ function addMarquee(nameLength: number, styleId: string) {
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('hair')" class=" w-16">Hair</el-button>
-          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block hair-marquee">{{ nameObj.hair }}</p>
+          <div ref="hairDivRef" class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p ref="hairRef" class="font-black inline-block hair-marquee">{{ nameObj.hair }}</p>
           </div>
           <el-button :type="copyButtonTypeMap['hair'].value" :icon="copyButtonIconMap['hair'].value"
             @click="copyCode('hair')" class=" w-22">{{
@@ -727,8 +783,8 @@ function addMarquee(nameLength: number, styleId: string) {
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('head')" class=" w-16">Head</el-button>
-          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block head-marquee">{{ nameObj.head }}</p>
+          <div ref="headDivRef" class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p ref="headRef" class="font-black inline-block head-marquee">{{ nameObj.head }}</p>
           </div>
           <el-button :type="copyButtonTypeMap['head'].value" :icon="copyButtonIconMap['head'].value"
             @click="copyCode('head')" class=" w-22">{{
@@ -736,8 +792,8 @@ function addMarquee(nameLength: number, styleId: string) {
         </div>
         <div class="flex items-center justify-center">
           <el-button round :disabled="rending" @click="handelClick('body')" class=" w-16">Body</el-button>
-          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block body-marquee">{{ nameObj.body }}</p>
+          <div ref="bodyDivRef" class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p ref="bodyRef" class="font-black inline-block body-marquee">{{ nameObj.body }}</p>
           </div>
           <el-button :type="copyButtonTypeMap['body'].value" :icon="copyButtonIconMap['body'].value"
             @click="copyCode('body')" class=" w-22">{{
@@ -745,8 +801,8 @@ function addMarquee(nameLength: number, styleId: string) {
         </div>
         <div class="flex items-center justify-center mb-2">
           <el-button round :disabled="rending" @click="handelClick('hand')" class=" w-16">Hand</el-button>
-          <div class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
-            <p class="font-black inline-block hand-marquee">{{ nameObj.hand }}</p>
+          <div ref="handDivRef" class="marquee-container w-32 mx-2 text-center overflow-hidden whitespace-nowrap">
+            <p ref="handRef" class="font-black inline-block hand-marquee">{{ nameObj.hand }}</p>
           </div>
           <el-button :type="copyButtonTypeMap['hand'].value" :icon="copyButtonIconMap['hand'].value"
             @click="copyCode('hand')" class=" w-22">{{
@@ -769,9 +825,8 @@ function addMarquee(nameLength: number, styleId: string) {
           <div class="size-5 mr-4">
             <img class="animate-spin" v-if="rending" src="/fish-cake.svg" alt="loading" />
           </div>
-          <el-progress :percentage="renderProgressPercentage" :status="rending ? '': 'success'" />
+          <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'" />
         </div>
-        
       </div>
       <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2 px-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
