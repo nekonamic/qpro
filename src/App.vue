@@ -1347,7 +1347,6 @@ async function renderSprites(
       (code.body === 329 && qp_uni_SpriteLayer.includes(sprite.type)) ||
       (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type))
     ) {
-      console.log(sprite.type)
       const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
       const [sx, sy] = sprite.position
       const [dx, dy] = sprite.drawAt
