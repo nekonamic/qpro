@@ -1281,14 +1281,12 @@ async function renderSprites(
   } else if (code[type!] === 0) {
     // face
     targetQproData = qproData.face.find(item => item.id === code.face)
-    if (!isRendingSet) nameObj.value.face = targetQproData!.name;
     // face
     targetSpriteData = renderSpriteData.find(item => item.type === "face")
     targetSpriteData!.image = targetQproData!.webp_base64;
 
     // hair
     targetQproData = qproData.hair.find(item => item.id === code.hair)
-    if (!isRendingSet) nameObj.value.hair = targetQproData!.name;
     // hair_f
     targetSpriteData = renderSpriteData.find(item => item.type === "hair_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1298,7 +1296,6 @@ async function renderSprites(
 
     // head
     targetQproData = qproData.head.find(item => item.id === code.head)
-    if (!isRendingSet) nameObj.value.head = targetQproData!.name;
     // head_f
     targetSpriteData = renderSpriteData.find(item => item.type === "head_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1308,7 +1305,6 @@ async function renderSprites(
 
     // body
     targetQproData = qproData.body.find(item => item.id === code.body)
-    if (!isRendingSet) nameObj.value.body = targetQproData!.name;
     // body_f
     targetSpriteData = renderSpriteData.find(item => item.type === "body_f")
     targetSpriteData!.image = targetQproData!.webp_base64;
@@ -1403,7 +1399,6 @@ async function renderSprites(
 
     // hand
     targetQproData = qproData.hand.find(item => item.id === code.hand)
-    if (!isRendingSet) nameObj.value.hand = targetQproData!.name;
     // hand_r
     targetSpriteData = renderSpriteData.find(item => item.type === "hand_r")
     targetSpriteData!.image = targetQproData!.webp_base64;
