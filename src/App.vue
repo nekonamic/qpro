@@ -772,7 +772,7 @@ async function handelClick(option: QproKey) {
   let RendedQuery = 0
   qproPreviewList.value.length = 0;
   rending.value = true
-  let previewCodeObj: qproCode = { ...codeObj };
+  let previewCodeObj: qproCode = structuredClone(codeObj);
   previewType = option
 
   for (let i = 0; i < qproData[option].length; i++) {
@@ -902,7 +902,7 @@ onMounted(async () => {
   targetSpriteData = spriteData.find(item => item.type === "qp_uni_leg_l_lower")
   targetSpriteData!.image = targetQproData!.webp_base64;
 
-  renderSpriteData = [...spriteData]
+  renderSpriteData = structuredClone(spriteData);
   await renderSprites(qproCanvas.value, codeObj)
 })
 
@@ -1394,7 +1394,7 @@ function saveImage() {
 
 async function changeSprite(code: number) {
   if (chooseSet) {
-    codeObj = { ...setsCode[code] }
+    codeObj = structuredClone(setsCode[code])
   } else {
     codeObj[previewType] = code;
   }
@@ -1599,7 +1599,7 @@ function addMarquee(move: number, styleId: string) {
       </div>
       <div v-if="qproPreviewList.length != 0" class="grid grid-cols-1 md:grid-cols-2 gap-2 px-2">
         <div v-for="(img, index) in qproPreviewList" :key="index"
-          class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl"
+          class="md:w-[calc((50vw-1rem)/2)] w-full h-auto relative rounded-xl border-4 hover:shadow-xl grid justify-center"
           :class="(codeObj[previewType] === index && !chooseSet) || (JSON.stringify(setsCode[index]) === JSON.stringify(codeObj) && chooseSet) ? 'border border-blue-500 rounded-md bg-blue-100' : 'border-transparent'"
           @click="codeObj[previewType] = index; changeSprite(index)">
           <img draggable="false" :src="img" alt="loading" class="object-cover" />
