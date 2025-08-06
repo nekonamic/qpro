@@ -5,8 +5,14 @@ import type { qproCode } from './types/qproCode'
 import type { spriteItem } from './types/spriteItem'
 import type { qproName } from './types/qproName'
 
-import { CopyDocument, SuccessFilled } from '@element-plus/icons-vue'
+import { CopyDocument, SuccessFilled, Upload } from '@element-plus/icons-vue'
 import { Download } from '@element-plus/icons-vue'
+
+type typeSave = qproCode & {
+  name: string;
+};
+
+const saveList = ref<typeSave[]>([])
 
 type QproDataL2 = {
   id: number;
@@ -26,6 +32,12 @@ type QproDataL1 = {
 let setsCode: qproCode[] = []
 
 let chooseSet: boolean = false
+
+const formName = ref<string>('')
+const formIndex = ref<number | null>(null)
+
+const saveLocalStorageVisible = ref<boolean>(false)
+const loadLocalStorageVisible = ref<boolean>(false)
 
 const faceDivRef = ref<HTMLElement | null>(null)
 const faceRef = ref<HTMLElement | null>(null)
@@ -1594,6 +1606,64 @@ function saveImage() {
   document.body.removeChild(link);
 }
 
+async function copyImage() {
+  const webpDataURL = qproCanvas.value!.toDataURL('image/png');
+
+  const blob = dataURLtoBlob(webpDataURL);
+  await navigator.clipboard.write([
+    new ClipboardItem({
+      [blob.type]: blob
+    })
+  ]);
+}
+
+function dataURLtoBlob(dataURL: string) {
+  const arr = dataURL.split(',');
+  const mime = arr[0].match(/:(.*?);/)![1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+function saveLocalStorage(name: string) {
+  const savesRaw = localStorage.getItem('saves')
+  let saves: typeSave[] = []
+  if (savesRaw) saves = JSON.parse(savesRaw)
+  const save: typeSave = {
+    ...codeObj,
+    name: name
+  }
+  saves.push(save)
+  localStorage.setItem('saves', JSON.stringify(saves))
+  formName.value = ''
+}
+
+async function loadLocalStorage(index: number) {
+  const { name, ...codeObj }: typeSave = saveList.value[index]!;
+  localStorage.setItem('qproCode', JSON.stringify(codeObj))
+
+  await renderSprites(qproCanvas.value, codeObj)
+  loadLocalStorageVisible.value = false
+}
+
+async function deleteLocalStorage(index: number) {
+  saveList.value.splice(index, 1);
+  localStorage.setItem('saves', JSON.stringify(saveList.value))
+  formIndex.value = null
+}
+
+function handelClickLoad() {
+  formIndex.value = null
+  saveList.value = []
+  const savesRaw = localStorage.getItem('saves')
+  if (savesRaw) saveList.value = JSON.parse(savesRaw)
+  loadLocalStorageVisible.value = true
+}
+
 async function changeSprite(code: number) {
   if (chooseSet) {
     codeObj = structuredClone(setsCode[code])
@@ -1718,8 +1788,8 @@ function addMarquee(move: number, styleId: string) {
 </script>
 
 <template>
-  <el-dialog v-model="loadQproData" width="500" class="max-w-[90vw]" :show-close=false :close-on-click-modal=false
-    :close-on-press-escape=false>
+  <el-dialog align-center v-model="loadQproData" width="80vw" class="md:max-w-[50vw]" :show-close=false
+    :close-on-click-modal=false :close-on-press-escape=false>
     <template #header>
       <div class="flex items-center">
         <img class="mr-3 size-5 animate-spin" src="/fish-cake.svg" alt="loading" />
@@ -1728,8 +1798,50 @@ function addMarquee(move: number, styleId: string) {
     </template>
   </el-dialog>
 
+  <el-dialog align-center v-model="saveLocalStorageVisible" title="Save to LocalStorage" width="80vw"
+    class="md:max-w-[50vw]">
+    <el-form>
+      <el-form-item label="Name">
+        <el-input v-model="formName" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="saveLocalStorageVisible = false">Cancel</el-button>
+        <el-button type="primary" :disabled="formName === ''"
+          @click="saveLocalStorageVisible = false; saveLocalStorage(formName)">
+          Confirm
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
+
+  <el-dialog align-center v-model="loadLocalStorageVisible" title="Save to LocalStorage" width="80vw"
+    class="md:max-w-[50vw]">
+    <el-form>
+      <el-form-item label="Name">
+        <el-select v-model="formIndex" placeholder="Please select a save">
+          <el-option v-for="(save, index) in saveList" :key="index" :label="save.name" :value="index" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer flex justify-between">
+        <el-button type="danger" :disabled="formIndex === null" @click="deleteLocalStorage(formIndex!)">
+          Delete
+        </el-button>
+        <div class="space-x-2">
+          <el-button @click="loadLocalStorageVisible = false">Cancel</el-button>
+          <el-button type="primary" :disabled="formIndex === null" @click="loadLocalStorage(formIndex!)">
+            Confirm
+          </el-button>
+        </div>
+      </div>
+    </template>
+  </el-dialog>
+
   <div
-    class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center font-roboto">
+    class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 flex flex-col md:flex-row items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
       <p class="text-2xl font-extrabold">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] md:w-[25vw] h-auto"></canvas>
@@ -1780,8 +1892,13 @@ function addMarquee(move: number, styleId: string) {
               copyButtonTextMap['hand'] }}</el-button>
         </div>
         <div class="flex items-center justify-center mb-2">
-          <el-button round :disabled="rending" @click="handelSetsClick()" class=" w-16 mr-10">Sets</el-button>
-          <el-button type="primary" :icon="Download" @click="saveImage" class="mb-1">Save Qpro As Image</el-button>
+          <el-button round :disabled="rending" @click="handelSetsClick()" class=" w-16">Sets</el-button>
+          <el-button plain type="primary" :icon="Download" @click="saveImage" class="w-26">Save Image</el-button>
+          <el-button plain type="primary" :icon="CopyDocument" @click="copyImage" class="w-26">Copy Image</el-button>
+        </div>
+        <div class="flex items-center justify-center mb-2">
+          <el-button text :icon="Upload" @click="saveLocalStorageVisible = true" class="w-22">Save</el-button>
+          <el-button text :icon="Download" @click="handelClickLoad" class="w-22">Load</el-button>
         </div>
         <p class="mb-1">Develop by DJ <span
             class="font-bold bg-gradient-to-r from-[#5BCEFA] to-[#F5A9B8] bg-clip-text text-transparent">HITOMI</span>
@@ -1789,7 +1906,7 @@ function addMarquee(move: number, styleId: string) {
       </div>
     </div>
     <div
-      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:min-h-[calc(100vh-8rem)] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
+      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[38rem] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
       <div
         class="border-b border-gray-200 sticky top-0 z-50 bg-gray-100 grid grid-cols-[min-content_1fr] gap-4 px-2 pt-2">
         <p class="text-xl min-w-max">QPro List</p>
