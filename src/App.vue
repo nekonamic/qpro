@@ -1788,7 +1788,7 @@ function addMarquee(move: number, styleId: string) {
 </script>
 
 <template>
-  <el-dialog align-center v-model="loadQproData" width="80vw" class="md:max-w-[50vw]" :show-close=false
+  <el-dialog center align-center v-model="loadQproData" width="15rem" :show-close=false
     :close-on-click-modal=false :close-on-press-escape=false>
     <template #header>
       <div class="flex items-center">
