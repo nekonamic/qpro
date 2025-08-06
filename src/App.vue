@@ -64,6 +64,7 @@ const normalSpriteLayer: string[] = [
   "leg_r_upper",
   "leg_l_upper",
   "body_f",
+  "arm_l_upper",
   "arm_l_lower",
   "face",
   "hair_f",
@@ -1548,7 +1549,6 @@ async function renderSprites(
       (specialSpriteCode.includes(code.body) && specialSpriteLayer.includes(sprite.type)) ||
       (magickNumber.includes(code.body) && magickSpriteLayer.includes(sprite.type))
     ) {
-      console.log(sprite)
       const img = await loadImage(`data:image/webp;base64,${sprite.image}`)
       const [sx, sy] = sprite.position
       const [dx, dy] = sprite.drawAt
