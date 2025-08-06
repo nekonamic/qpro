@@ -1816,7 +1816,7 @@ function addMarquee(move: number, styleId: string) {
     </template>
   </el-dialog>
 
-  <el-dialog align-center v-model="loadLocalStorageVisible" title="Save to LocalStorage" width="80vw"
+  <el-dialog align-center v-model="loadLocalStorageVisible" title="Load from LocalStorage" width="80vw"
     class="md:max-w-[50vw]">
     <el-form>
       <el-form-item label="Name">
