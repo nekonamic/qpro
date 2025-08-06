@@ -1841,7 +1841,7 @@ function addMarquee(move: number, styleId: string) {
   </el-dialog>
 
   <div
-    class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 flex flex-col md:flex-row items-center justify-center font-roboto">
+    class="rounded-xl border-1 border-solid my-8 w-fit mx-auto shadow-xl border-gray-300 bg-white p-4 flex flex-col md:flex-row md:min-h-[calc(100vh-4rem)] items-center justify-center font-roboto">
     <div class="flex flex-col items-center justify-center">
       <p class="text-2xl font-extrabold">QPro Previewer for IIDX 31</p>
       <canvas ref="qproCanvas" width="384" height="400" class="w-[70vw] md:w-[25vw] h-auto"></canvas>
@@ -1906,10 +1906,10 @@ function addMarquee(move: number, styleId: string) {
       </div>
     </div>
     <div
-      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[38rem] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
+      class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[calc(100vh-6rem)] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
       <div
         class="border-b border-gray-200 sticky top-0 z-50 bg-gray-100 grid grid-cols-[min-content_1fr] gap-4 px-2 pt-2">
-        <p class="text-xl min-w-max">QPro List</p>
+        <p class="text-xl font-bold min-w-max">QPro List</p>
         <div class="grid grid-cols-[1fr_min-content] items-center relative bottom-0.5"
           v-if="qproPreviewList.length != 0">
           <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'"
