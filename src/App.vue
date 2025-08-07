@@ -1909,7 +1909,7 @@ function addMarquee(move: number, styleId: string) {
       class=" md:ml-8 md:w-[calc(50vw+1rem)] md:h-[calc(100vh-6.5rem)] w-[70vw] h-[70vh] overflow-y-auto border border-gray-200 shadow-xl rounded-xl">
       <div
         class="border-b border-gray-200 sticky top-0 z-50 bg-gray-100 grid grid-cols-[min-content_1fr] gap-4 px-2 pt-2">
-        <p class="text-xl font-bold min-w-max">QPro List</p>
+        <p class="text-xl font-bold min-w-max text-gray-600">QPro List</p>
         <div class="grid grid-cols-[1fr_min-content] items-center relative bottom-0.5"
           v-if="qproPreviewList.length != 0">
           <el-progress :percentage="renderProgressPercentage" :status="rending ? '' : 'success'"
